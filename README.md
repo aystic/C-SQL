@@ -1,6 +1,6 @@
 # C++ Standard Template Library
 
-## `<string>`
+## &lt;string&gt;
 
 ```C++
 /* Initialization */
@@ -105,3 +105,46 @@ s1.replace(0, 2, "world", 2, 3); //rldllo
 s1.replace(0, 2, 3, '*');//***llo
 
 ```
+
+---
+
+## &lt;array&gt;
+
+```C++
+/* Initialization */
+array<int, 5> arr{1, 2, 3, 4, 5};
+
+
+
+/* Looping */
+for (int i : arr)cout << i << " ";//"int &i" to modify
+
+for (int i = 0; i < arr.size(); ++i)cout << arr[i] << " ";
+
+for (array<int, 5>::iterator itr = arr.begin(); itr != arr.end(); ++itr)cout << *itr << " ";
+
+int* ptr = arr.data();//Pointer to first element
+for (int i = 0; i < 5; ++i)cout << *(ptr + i) << " ";
+
+
+
+/* Iterators
+- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
+*/
+
+
+
+/* Methods */
+arr.size();//5
+arr.empty();//true|false
+arr.front();//1
+arr.back();//5
+arr.fill(0);//0 0 0 0 0
+arr.swap();
+arr[pos];//access elements
+get<pos>(arr);//access elements
+arr1==arr2;//== != > < >= <=
+
+```
+
+---
