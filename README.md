@@ -243,7 +243,6 @@ list<int>l6(l2.begin(), (advance(itr, 3), itr));//1,2,3
 for (int i : l2)cout << i << " ";//"int &i" to modify
 //OR
 for (list<int>::iterator itr = l2.begin(); itr != l2.end(); ++itr)cout << *itr << " ";
-//OR
 
 /* Iterators
 - begin, end, rbegin, rend, cbegin, cend, crbegin, crend
@@ -391,3 +390,44 @@ q1.back();
 ==, !=, >, <, >=, <= -> lexicographical
 */
 ```
+
+---
+
+## &lt;queue&gt;->priority_queue
+
+- It is a container adaptor
+- By default the underlying container is `vector` but `dequeue` can also be used
+
+```C++
+/* Initialization */
+vector<int> v{1, 2, 3, 4, 5};
+deque<int>d{1, 2, 3, 4, 5};
+
+priority_queue<int>pq1;//max heap; empty
+priority_queue<int, vector<int>, greater<int>>pq2(v.begin(), v.end()); //min heap
+priority_queue<int, deque<int>>pq3(d.begin(), d.end()); //max heap
+priority_queue<int, deque<int>, greater<int>>pq4(d.begin(), d.end()); //min heap
+priority_queue<int, vector<int>>pq5; //equivalent to pq1
+
+class comparator {
+	bool reverse;
+public:
+	comparator(const bool & reverse = false) {
+		this->reverse = reverse;
+	}
+	bool operator()(const int&val1, const int& val2) {
+		return reverse ? (val1 > val2) : (val1 < val2);
+	}
+};
+priority_queue<int, vector<int>, comparator>pq7; //max heap
+priority_queue<int, vector<int>, comparator>pq8(comparator(true));//min heap
+
+pq1.empty();
+pq1.size();
+
+pq1.top();
+pq1.push(99);
+pq1.pop();
+```
+
+---
