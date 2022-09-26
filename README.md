@@ -345,6 +345,7 @@ l2.sort(binaryPredicate);
 vector<int> v{1, 2, 3, 4, 5};
 list<int> l{1, 2, 3, 4, 5};
 deque<int>d{1, 2, 3, 4, 5};
+
 stack<int> st1;
 stack<int, vector<int>> st2(v);
 stack<int, list<int>> st3(l);
@@ -356,6 +357,35 @@ st.empty();//true|false
 st1.top();
 st1.push(99);
 st1.pop();
+
+/* Relational operators
+==, !=, >, <, >=, <= -> lexicographical
+*/
+```
+
+---
+
+## &lt;queue&gt;
+
+- It is a container adaptor
+- By default the underlying container is `deque` but `list` can also be used
+
+```C++
+/* Initialization */
+list<int> l{1, 2, 3, 4, 5};
+deque<int>d{1, 2, 3, 4, 5};
+
+queue<int> q1;
+queue<int, list<int>> q2(l);
+queue<int, deque<int>> q3(d);//equivalent to q1
+
+q1.size();
+q1.empty();
+
+q1.push(99);
+q1.pop();
+q1.front();
+q1.back();
 
 /* Relational operators
 ==, !=, >, <, >=, <= -> lexicographical
