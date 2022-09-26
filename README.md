@@ -111,7 +111,6 @@ s1.replace(0, 2, s2); //Hellollo
 s1.replace(0, 2, "world", 3); //worllo
 s1.replace(0, 2, "world", 2, 3); //rldllo
 s1.replace(0, 2, 3, '*');//***llo
-
 ```
 
 ---
@@ -160,7 +159,6 @@ arr1==arr2;//== != > < >= <=
 ## &lt;vector&gt;
 
 ```C++
-
 /* Initialization */
 vector<int> arr;//empty
 vector<int>arr1{1, 2, 3, 4, 5};//Initializer list
@@ -222,7 +220,6 @@ arr.insert(arr.begin(), arr.begin(), arr.begin() + 2);//9,8,9,8,0,0,0,99,7
 /* relational operators
 == != > < >= <= -> lexicographical
  */
-
 ```
 
 ---
@@ -230,7 +227,6 @@ arr.insert(arr.begin(), arr.begin(), arr.begin() + 2);//9,8,9,8,0,0,0,99,7
 ## &lt;list&gt;
 
 ```C++
-
 /* Initialization */
 list<int> l1;//empty
 list<int> l2{1, 2, 3, 4, 5};//1,2,3,4,5
@@ -329,8 +325,39 @@ l2.merge(l1, binaryPredicate);
 
 l2.reverse();
 
-/* Relational operators
-- ==, !=, > , < ,>=, <=
-*/
+l2.sort();
+l2.sort(binaryPredicate);
 
+/* Relational operators
+==, !=, > , < ,>=, <= -> lexicographical
+*/
+```
+
+---
+
+## &lt;stack&gt;
+
+- It is a container adaptor
+- By default the underlying container is `deque` but `vector` and `list` can also be used
+
+```C++
+/* Initialization */
+vector<int> v{1, 2, 3, 4, 5};
+list<int> l{1, 2, 3, 4, 5};
+deque<int>d{1, 2, 3, 4, 5};
+stack<int> st1;
+stack<int, vector<int>> st2(v);
+stack<int, list<int>> st3(l);
+stack<int, deque<int>> st4(d);//equivalent to st1
+
+st1.size();
+st.empty();//true|false
+
+st1.top();
+st1.push(99);
+st1.pop();
+
+/* Relational operators
+==, !=, >, <, >=, <= -> lexicographical
+*/
 ```
