@@ -45,15 +45,21 @@ s1.resize(3);//"Hel"
 s1.resize(4);//"Hel\0"
 s1.capacity();//>=length
 s1.reserve(28);//capacity>=28
+
 s1.clear();//""
 s1.empty();//true | false
+
 s1.front();//'H'
 s1.back();//'l'
+
 s1.push_back('x');//Hellox
 s1.pop_back();
+
 const char * str = s1.c_str();
 const char* str2 = s1.data();
+
 s1.copy(to,no_of_char,start_posn);
+
 /*
 find -> first occurence
 rfind -> last occurence
@@ -63,8 +69,10 @@ s1.find(string,start_pos,no_of_chars_to_match);
 // find_fisrt_not_of and find_last_not_of also exist
 s1.find_first_of(string);//first match any char of string
 s1.find_last_of(string);//last match of any char of string
+
 string arr = s1.substr(2);//llo
 string arr2 = s1.substr(2, 2);//ll
+
 s1.compare(0, 3, "Hi Hello", 3, 3);//0; |Hel|lo == Hi |Hel|lo
 
 // Append
@@ -131,12 +139,18 @@ for (int i = 0; i < 5; ++i)cout << *(ptr + i) << " ";
 /* Methods */
 arr.size();//5
 arr.empty();//true|false
+
 arr.front();//1
 arr.back();//5
+
 arr.fill(0);//0 0 0 0 0
+
 arr.swap();
+
 arr[pos];//access elements
+
 get<pos>(arr);//access elements
+
 arr1==arr2;//== != > < >= <=
 
 ```
@@ -176,6 +190,7 @@ for (int i = 0; i < arr.size(); ++i)cout << *(ptr + i) << " ";
 /* Methods */
 arr1.push_back(9);//1,2,3,4,5,9
 arr1.pop_back();//1,2,3,4,5
+
 arr1.size();//number of elements
 arr1.capacity();//>=size
 arr1.reserve(20);//20>arr1.capacity()?capacity=20:capacity=arr1.capacity();
@@ -207,5 +222,115 @@ arr.insert(arr.begin(), arr.begin(), arr.begin() + 2);//9,8,9,8,0,0,0,99,7
 /* relational operators
 == != > < >= <= -> lexicographical
  */
+
+```
+
+---
+
+## &lt;list&gt;
+
+```C++
+
+/* Initialization */
+list<int> l1;//empty
+list<int> l2{1, 2, 3, 4, 5};//1,2,3,4,5
+list<int> l3(l2);//copy
+list<int>l4(5, 0);//0,0,0,0,0 ; fill
+list<int>l5;
+l5 = l4;
+l5 = {1, 2, 3, 4, 5};
+list<int>::iterator itr = l2.begin();
+list<int>l6(l2.begin(), (advance(itr, 3), itr));//1,2,3
+
+
+/* Looping */
+for (int i : l2)cout << i << " ";//"int &i" to modify
+//OR
+for (list<int>::iterator itr = l2.begin(); itr != l2.end(); ++itr)cout << *itr << " ";
+//OR
+
+/* Iterators
+- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
+*/
+
+/* Methods */
+l2.empty();//true|false
+l2.size();//number of elements
+
+l2.front();//1
+l2.back();//5
+
+l2.push_front(99);//99,1,2,3,4,5
+l2.pop_front();//1,2,3,4,5
+l2.push_back(99);//1,2,3,4,5,99
+l2.pop_back();//1,2,3,4,5
+
+l2.assign(3,0);//0,0,0
+l2.assign(l4.begin(),l4.end());//0,0,0,0,0
+l2.assign({1,2,3,4,5});//1,2,3,4,5
+
+l2.insert( (itr = l2.end(), advance(itr, -2), itr), 99); //1,2,3,99,4,5
+l2.insert(++l2.begin(), 3, 0); //1,0,0,0,2,3,99,4,5
+l2.insert(++l2.begin(), l4.begin(), l4.end());//1,0,0,0,0,0,0,0,0,2,3,99,4,5
+l2.insert(++l2.begin(), {9, 8, 7});//1,9,8,7,0,0,0,0,0,0,0,0,2,3,99,4,5
+
+l2.erase(l2.begin());//9,8,7,0,0,0,0,0,0,0,0,2,3,99,4,5
+l2.erase(l2.begin(), (advance(itr, -1), itr));//99,4,5
+
+l2.resize(5);//99,4,5,0,0
+l2.resize(8, 99);//99,4,5,0,0,99,99,99
+l2.resize(5);//99,4,5,0,0
+
+l2.clear();//size=0
+
+l2.splice(++l2.begin(), l5);//99,1,2,3,4,5,4,5,0,0 ; l5->empty
+l2.splice(++l2.begin(), l5, l5.begin(), --l5.end());//99,1,2,3,4,4,5,0,0 ; l5->5
+l2.splice(++l2.begin(), l5, ++l5.begin());//99,2,4,5,0,0 ; l5->1,3,4,5
+
+l2.remove(0);//99,2,4,5
+
+
+/* Accepts predicate */
+bool is_even(const int& val) {
+	return (val & 1) == 0 ? true : false;
+}
+
+class is_odd {
+public:
+	bool operator()(const int& val) {
+		return (val & 1 ) ==  1 ? true : false;
+	}
+};
+l2.remove_if(is_even);//99,5
+l2.remove_if(is_odd());//empty
+
+l2 = {1, 2, 2, 3, 3, 4, 5, 6, 7, 7, 8, 8, 9};
+l2.unique();//removes all the duplicates
+/* Accepts binary predicate : removes the first element on returning true*/
+bool is_even(const int& val1, const int& val2) {
+	return ((val1 == val2) && (!(val1 & 1) && !(val2 & 1))) ? true : false;
+}
+
+class is_odd {
+public:
+	bool operator()(const int& val1, const int&val2) {
+		return ((val1 == val2) && ((val1 & 1) && (val2 & 1))) ? true : false;
+	}
+};
+l2.unique(is_even);//removes all even duplicate pairs
+l2.unique(is_odd());//removes all odd duplicate pairs
+
+l1 = {1, 3, 5, 7};
+l2 = {2, 4, 5, 6, 8, 9};
+//l1 and l2 should be sorted
+l2.merge(l1);//l2->1,2,3,4,5,5,6,7,8,9 ; l1->empty
+//if Binary Predicate returns true then the first element (in the argument of the predicate) goes first
+l2.merge(l1, binaryPredicate);
+
+l2.reverse();
+
+/* Relational operators
+- ==, !=, > , < ,>=, <=
+*/
 
 ```
