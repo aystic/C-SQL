@@ -431,3 +431,70 @@ pq1.pop();
 ```
 
 ---
+
+## &lt;deque&gt;
+
+```C++
+/* Initialization */
+int arr[] {1, 2, 3};
+vector<int> v{1, 2, 3, 4, 5};
+
+deque<int> dq;//empty
+deque<int> dq1(3);//0,0,0
+deque<int> dq2(3, 99); //99,99,99
+deque<int> dq3{1, 2, 3, 4, 5}; //1,2,3,4,5
+deque<int> dq4(dq3);//1,2,3,4,5
+deque<int> dq5(arr, arr + (sizeof(arr) / sizeof(int))); //1,2,3
+deque<int> dq6(v.begin(), v.end() - 2); //1,2,3
+dq=dq1;//0,0,0
+dq={1,2,3,4,5};//1,2,3,4,5
+
+/* Iterators
+- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
+*/
+
+//Looping
+for (int i : dq)cout << i << " ";//use 'int &i' to modify
+//OR
+for (int i = 0; i < dq.size(); ++i)cout << dq[i] << " ";
+//OR
+for (deque<int>::iterator itr = dq.begin(); itr != dq.end(); ++itr)cout << *itr << " ";
+
+//Capacity
+dq.size();
+dq.empty();//true|false
+dq.resize(3);//1,2,3
+dq.resize(4);//1,2,3,0
+dq.resize(5,99);//1,2,3,0,99
+
+//Element access
+dq[3];//0
+dq.at(3);//0
+dq.front();//1
+dq.back();//99
+
+//Modifiers
+dq.push_back(0);
+dq.pop_back();
+dq.push_front(0);
+dq.pop_front();
+
+dq.assign(dq1.begin(),dq1.end()-1);//0,0
+dq.assign(arr,arr+3);//1,2,3
+dq.assign(3,1);//1,1,1
+dq.assign({1,2,3,0,99});//1,2,3,0,99
+
+dq.erase(dq.begin() + 3); //1,2,3,99
+dq.erase(dq.begin() + 2, dq.begin() + 4);//1,2
+
+dq.insert(dq.begin() + 2, 99);//1,2,99
+dq.insert(dq.begin() + 1, 3, 0); //1,0,0,0,2,99
+dq.insert(dq.begin(), arr, arr + 2);//1,2,1,0,0,0,2,99
+dq.insert(dq.end(), {2, 3, 4});//1,2,1,0,0,0,2,99,2,3,4
+
+dq.clear();//size=0
+
+/* Relational operators
+== != > < >= <= -> lexicographical
+*/
+```
