@@ -656,6 +656,80 @@ ms.equal_pair(10);//returns pair; first->lower_bound(10) second->upper_bound(10)
 
 ---
 
+## &lt;map&gt;
+
+[View Index](#stl-components)
+
+```C++
+/* Initialization */
+class compareClass {
+public:
+	bool operator() (const char& val1, const char& val2) const {
+		return val1 > val2;
+	}
+} ;
+
+bool compare(const char& val1, const char& val2) {
+	return val1 > val2;
+}
+
+pair<char, int>arr[] {{'a', 1}, {'b', 2}, {'c', 3}, {'d', 4}};
+
+map<char, int>mp;
+map<char, int>mp1(arr, arr + 3);
+map<char, int>mp2(mp1);
+map<char, int>mp3({{'a', 1}, {'b', 2}, {'c', 3}, {'d', 4}});
+bool(*fnPtr)(const char&, const char&) = compare;
+map<char, int, bool(*)(const char&, const char&)>mp4(fnPtr);
+mp4['a'] = 1;
+mp4['b'] = 2;
+mp4['c'] = 3;
+map<char, int, compareClass>mp5({{'a', 1}, {'b', 2}, {'c', 3}, {'d', 4}});
+
+/* Iterators
+- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
+*/
+
+//Looping
+for (pair<char, int> p : mp5)cout << p.first << " " << p.second << endll;
+//OR
+for (map<char, int>::iterator itr = mp5.begin(); itr != mp5.end(); ++itr)cout << "(" << (*itr).first << "," << (*itr).second << ") ";
+
+//Capacity
+mp.empty();
+mp.size();
+
+//Element access
+mp['a'];//gives 1
+mp.at('a');//gives 1
+
+//Modifiers
+map<char, int, compareClass>::iterator itr = mp5.find('c');
+mp5.erase(--mp5.end());//deletes last key-val pair
+mp5.erase(itr, mp5.end());//deletes (c,3),(b,2) key-val pair
+mp5.erase('d');//deletes (d,4) key-val pair
+
+mp5.insert({'a', 1});
+mp5.insert(hint,first_itr,last_itr);
+mp5.insert(first_itr,last_itr);
+mp5.insert({{'c', 3}, {'d', 4}});
+
+mp.clear();//empty
+
+//Operations
+mp.find('a');//returns itr if element found, mp.end() otherwise; (*itr).first->'a',(*itr).second->1
+mp.count('a');
+mp.lower_bound('a');//iterator to lower bound
+mp.upper_bound('a');//iterator to upper bound
+
+typedef map<char, int, compareClass>::iterator itrType;
+pair<itrType, itrType> itrRange;
+itrRange = mp5.equal_range('c');//itrRange.first->('c',3), itrRange.second->('b',2)
+
+```
+
+---
+
 ## &lt;string&gt;
 
 [View Index](#stl-components)
