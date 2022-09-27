@@ -540,6 +540,66 @@ pq1.pop();
 
 ---
 
+## &lt;set&gt;
+
+[View Index](#stl-components)
+
+```C++
+/* Initialization */
+class compareClass {
+public:
+	bool operator() (const int& lhs, const int& rhs) const
+	{return lhs > rhs;}
+} ;
+
+bool compare(const int&val1, const int&val2) {
+	return val1 > val2 ? true : false;
+}
+
+int arr[] {1, 2, 3, 4, 5};
+
+set<int> s;
+set<int> s1{1, 2, 3, 4, 5};
+set<int> s2(arr, arr + 5);
+set<int> s3(s2);
+s=s1;
+s={9,8,7};
+bool(*fnPtr)(const int&, const int&) = compare;
+set<int, bool(*)(const int&, const int&)> s4({1, 2, 3, 4, 5}, fnPtr);
+
+set<int, compareClass> s5({4, 5, 6, 7, 8});
+
+/* Iterators
+- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
+*/
+
+//Capacity
+s.empty();
+s.size();//number of elements
+
+//Modifiers
+s.insert(99);
+s.insert(s.begin(),22);//position is the hint, iterator of the next element in order
+s.insert(arr, arr+3);
+s.insert({1,2,3,4,5});
+
+s.erase(2);//1,3,4,5,22,99
+s.erase(++s.begin());//1,4,5,22,99
+set<int>::iterator itr = s.begin();
+s.erase(s.begin(), (advance(itr, 3), itr));//22,99
+
+s.clear();//empty
+s.find(99);//return itr -> *itr=>99 or s.end() if not found
+s.count(25);//returns number of times a value is present
+
+s.lower_bound(10);//next element>=10
+s.upper_bound(10);//next element > 10
+
+s.equal_pair(10);//returns pair; first->lower_bound(10) second->upper_bound(10)
+```
+
+---
+
 ## &lt;string&gt;
 
 [View Index](#stl-components)
@@ -656,5 +716,3 @@ s1.replace(0, 2, 3, '*');//***llo
 ```
 
 ---
-
-## &lt;&gt;
