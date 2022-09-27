@@ -14,8 +14,8 @@
     - [Queue](#queue)
     - [Priority Queue](#queue-priority_queue)
   - Associative Containers
-    - Set
-    - Multiset
+    - [Set](#set)
+    - [Multiset](#set-multiset)
     - Map
     - Multimap
   - Unordered Associative Container
@@ -595,7 +595,63 @@ s.count(25);//returns number of times a value is present
 s.lower_bound(10);//next element>=10
 s.upper_bound(10);//next element > 10
 
-s.equal_pair(10);//returns pair; first->lower_bound(10) second->upper_bound(10)
+s.equal_pair(10);//returns pair; first->lower_bound(10) second->upper_bound(10); can contain only one element in the range
+```
+
+---
+
+## &lt;set&gt;->Multiset
+
+[View Index](#stl-components)
+
+```C++
+class compareClass {
+public:
+	bool operator() (const int& lhs, const int& rhs) const
+	{return lhs > rhs;}
+} ;
+
+bool compare(const int&val1, const int&val2) {
+	return val1 > val2 ? true : false;
+}
+
+int arr[] {1, 2, 3, 4, 5};
+
+multiset<int> ms;
+multiset<int> ms1{1, 2, 3, 4, 5};
+multiset<int> ms2(arr, arr + 5);
+multiset<int> ms3(ms2);
+bool(*fnPtr)(const int&, const int&) = compare;
+multiset<int, bool(*)(const int&, const int&)> ms4({1, 2, 3, 4, 5}, fnPtr);
+multiset<int, compareClass> ms5({4, 5, 6, 7, 8});
+
+/* Iterators
+- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
+*/
+
+//Capacity
+ms.empty();
+ms.size();//number of elements
+
+//Modifiers
+ms.insert(99);
+ms.insert(ms.begin(),22);//position is the hint, iterator of the next element in order
+ms.insert(arr, arr+3);
+ms.insert({1,2,3,4,5});
+
+ms.erase(2);//1 1 3 3 4 5 22 99
+ms.erase(++ms.begin());//1 3 3 4 5 22 99
+set<int>::iterator itr = ms.begin();
+ms.erase(ms.begin(), (advance(itr, 3), itr));//4 5 22 99
+
+ms.clear();//empty
+ms.find(99);//return itr -> *itr=>99 or ms.end() if not found
+ms.count(25);//returns number of times a value is present
+
+ms.lower_bound(10);//next element>=10
+ms.upper_bound(10);//next element > 10
+
+ms.equal_pair(10);//returns pair; first->lower_bound(10) second->upper_bound(10); can contain more than one element in the range
 ```
 
 ---
