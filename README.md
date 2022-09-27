@@ -1,6 +1,548 @@
 # C++ Standard Template Library
 
+## STL Components
+
+- Containers
+  - Sequence Containers
+    - [Array](#array)
+    - [Vector](#vector)
+    - [List](#list)
+    - [Deque](#deque)
+    - [Forward List](#forward_list)
+  - Container Adaptors
+    - [Stack](#stack)
+    - [Queue](#queue)
+    - [Priority Queue](#queue-priority_queue)
+  - Associative Containers
+    - Set
+    - Multiset
+    - Map
+    - Multimap
+  - Unordered Associative Container
+    - Unordered Set
+    - Unordered Multiset
+    - Unordered Map
+    - Unordered Multimap
+- Algorithms
+- Others
+  - [String](#string)
+
+---
+
+## &lt;array&gt;
+
+[View Index](#stl-components)
+
+```C++
+/* Initialization */
+array<int, 5> arr{1, 2, 3, 4, 5};
+
+/* Looping */
+for (int i : arr)cout << i << " ";//"int &i" to modify
+//OR
+for (int i = 0; i < arr.size(); ++i)cout << arr[i] << " ";
+//OR
+for (array<int, 5>::iterator itr = arr.begin(); itr != arr.end(); ++itr)cout << *itr << " ";
+//OR
+int* ptr = arr.data();//Pointer to first element
+for (int i = 0; i < 5; ++i)cout << *(ptr + i) << " ";
+
+/* Iterators
+- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
+*/
+
+/* Methods */
+arr.size();//5
+arr.empty();//true|false
+
+arr.front();//1
+arr.back();//5
+
+arr.fill(0);//0 0 0 0 0
+
+arr.swap();
+
+arr[pos];//access elements
+
+get<pos>(arr);//access elements
+
+arr1==arr2;//== != > < >= <=
+```
+
+---
+
+## &lt;vector&gt;
+
+[View Index](#stl-components)
+
+```C++
+/* Initialization */
+vector<int> v;//empty
+vector<int>v1{1, 2, 3, 4, 5};//Initializer list
+vector<int>v2(5, 0);//fill; 0,0,0,0,0
+vector<int>v3(v1.begin(), v1.begin() + 3);//1,2,3
+vector<int>v4(v1);//copy
+v4=v2;//v4-> 0,0,0,0,0
+
+
+/* Iterators
+- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
+*/
+
+
+/* Looping */
+for (int i : v1)cout << i << " ";//use "int &i" to modify
+//OR
+for (vector<int>::iterator itr = v1.begin(); itr != v1.end(); ++itr)
+	cout << *itr << " ";
+//OR
+for (int i = 0; i < v1.size(); ++i)cout << v1[i] << " ";
+//OR
+int *ptr = v.data();//returns the pointer
+for (int i = 0; i < v.size(); ++i)cout << *(ptr + i) << " ";
+
+
+/* Methods */
+v1.push_back(9);//1,2,3,4,5,9
+v1.pop_back();//1,2,3,4,5
+
+v1.size();//number of elements
+v1.capacity();//>=size
+v1.reserve(20);//20>v1.capacity()?capacity=20:capacity=v1.capacity();
+v1.empty();//true|false
+
+//Resize
+v1.resize(3);//1,2,3
+v1.resize(5);//1,2,3,0,0
+
+//Erase
+v1.erase(v.begin()+3);//1,2,3,0
+v1.erase(v.begin(),v.begin()+2);//3,0
+
+v1.front();//1
+v1.back();//0
+v1.clear();//size=0
+
+//Assign
+v1.assign(v.begin(), v.end());
+v1.assign({1, 2, 3});
+int vay[] {9, 8, 7, 6, 5};
+v1.assign(vay, vay + 3);//9,8,7
+
+//Insert
+v.insert(v.begin() + 2, 99);//9,8,99,7
+v.insert(v.begin() + 2, 3, 0);//9,8,0,0,0,99,7
+v.insert(v.begin(), v.begin(), v.begin() + 2);//9,8,9,8,0,0,0,99,7
+
+/* relational operators
+== != > < >= <= -> lexicographical
+ */
+```
+
+---
+
+## &lt;list&gt;
+
+[View Index](#stl-components)
+
+```C++
+/* Initialization */
+list<int> l1;//empty
+list<int> l2{1, 2, 3, 4, 5};//1,2,3,4,5
+list<int> l3(l2);//copy
+list<int>l4(5, 0);//0,0,0,0,0 ; fill
+list<int>l5;
+l5 = l4;
+l5 = {1, 2, 3, 4, 5};
+list<int>::iterator itr = l2.begin();
+list<int>l6(l2.begin(), (advance(itr, 3), itr));//1,2,3
+
+
+/* Looping */
+for (int i : l2)cout << i << " ";//"int &i" to modify
+//OR
+for (list<int>::iterator itr = l2.begin(); itr != l2.end(); ++itr)cout << *itr << " ";
+
+/* Iterators
+- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
+*/
+
+/* Methods */
+l2.empty();//true|false
+l2.size();//number of elements
+
+l2.front();//1
+l2.back();//5
+
+l2.push_front(99);//99,1,2,3,4,5
+l2.pop_front();//1,2,3,4,5
+l2.push_back(99);//1,2,3,4,5,99
+l2.pop_back();//1,2,3,4,5
+
+l2.assign(3,0);//0,0,0
+l2.assign(l4.begin(),l4.end());//0,0,0,0,0
+l2.assign({1,2,3,4,5});//1,2,3,4,5
+
+l2.insert( (itr = l2.end(), advance(itr, -2), itr), 99); //1,2,3,99,4,5
+l2.insert(++l2.begin(), 3, 0); //1,0,0,0,2,3,99,4,5
+l2.insert(++l2.begin(), l4.begin(), l4.end());//1,0,0,0,0,0,0,0,0,2,3,99,4,5
+l2.insert(++l2.begin(), {9, 8, 7});//1,9,8,7,0,0,0,0,0,0,0,0,2,3,99,4,5
+
+l2.erase(l2.begin());//9,8,7,0,0,0,0,0,0,0,0,2,3,99,4,5
+l2.erase(l2.begin(), (advance(itr, -1), itr));//99,4,5
+
+l2.resize(5);//99,4,5,0,0
+l2.resize(8, 99);//99,4,5,0,0,99,99,99
+l2.resize(5);//99,4,5,0,0
+
+l2.clear();//size=0
+
+l2.splice(++l2.begin(), l5);//99,1,2,3,4,5,4,5,0,0 ; l5->empty
+l2.splice(++l2.begin(), l5, l5.begin(), --l5.end());//99,1,2,3,4,4,5,0,0 ; l5->5
+l2.splice(++l2.begin(), l5, ++l5.begin());//99,2,4,5,0,0 ; l5->1,3,4,5
+
+l2.remove(0);//99,2,4,5
+
+
+/* Accepts predicate */
+bool is_even(const int& val) {
+	return (val & 1) == 0 ? true : false;
+}
+
+class is_odd {
+public:
+	bool operator()(const int& val) {
+		return (val & 1 ) ==  1 ? true : false;
+	}
+};
+l2.remove_if(is_even);//99,5
+l2.remove_if(is_odd());//empty
+
+l2 = {1, 2, 2, 3, 3, 4, 5, 6, 7, 7, 8, 8, 9};
+l2.unique();//removes all the duplicates
+/* Accepts binary predicate : removes the first element on returning true*/
+bool is_even(const int& val1, const int& val2) {
+	return ((val1 == val2) && (!(val1 & 1) && !(val2 & 1))) ? true : false;
+}
+
+class is_odd {
+public:
+	bool operator()(const int& val1, const int&val2) {
+		return ((val1 == val2) && ((val1 & 1) && (val2 & 1))) ? true : false;
+	}
+};
+l2.unique(is_even);//removes all even duplicate pairs
+l2.unique(is_odd());//removes all odd duplicate pairs
+
+l1 = {1, 3, 5, 7};
+l2 = {2, 4, 5, 6, 8, 9};
+//l1 and l2 should be sorted
+l2.merge(l1);//l2->1,2,3,4,5,5,6,7,8,9 ; l1->empty
+//if Binary Predicate returns true then the first element (in the argument of the predicate) goes first
+l2.merge(l1, binaryPredicate);
+
+l2.reverse();
+
+l2.sort();
+l2.sort(binaryPredicate);
+
+/* Relational operators
+==, !=, > , < ,>=, <= -> lexicographical
+*/
+```
+
+---
+
+## &lt;deque&gt;
+
+[View Index](#stl-components)
+
+```C++
+/* Initialization */
+int arr[] {1, 2, 3};
+vector<int> v{1, 2, 3, 4, 5};
+
+deque<int> dq;//empty
+deque<int> dq1(3);//0,0,0
+deque<int> dq2(3, 99); //99,99,99
+deque<int> dq3{1, 2, 3, 4, 5}; //1,2,3,4,5
+deque<int> dq4(dq3);//1,2,3,4,5
+deque<int> dq5(arr, arr + (sizeof(arr) / sizeof(int))); //1,2,3
+deque<int> dq6(v.begin(), v.end() - 2); //1,2,3
+dq=dq1;//0,0,0
+dq={1,2,3,4,5};//1,2,3,4,5
+
+/* Iterators
+- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
+*/
+
+//Looping
+for (int i : dq)cout << i << " ";//use 'int &i' to modify
+//OR
+for (int i = 0; i < dq.size(); ++i)cout << dq[i] << " ";
+//OR
+for (deque<int>::iterator itr = dq.begin(); itr != dq.end(); ++itr)cout << *itr << " ";
+
+//Capacity
+dq.size();
+dq.empty();//true|false
+dq.resize(3);//1,2,3
+dq.resize(4);//1,2,3,0
+dq.resize(5,99);//1,2,3,0,99
+
+//Element access
+dq[3];//0
+dq.at(3);//0
+dq.front();//1
+dq.back();//99
+
+//Modifiers
+dq.push_back(0);
+dq.pop_back();
+dq.push_front(0);
+dq.pop_front();
+
+dq.assign(dq1.begin(),dq1.end()-1);//0,0
+dq.assign(arr,arr+3);//1,2,3
+dq.assign(3,1);//1,1,1
+dq.assign({1,2,3,0,99});//1,2,3,0,99
+
+dq.erase(dq.begin() + 3); //1,2,3,99
+dq.erase(dq.begin() + 2, dq.begin() + 4);//1,2
+
+dq.insert(dq.begin() + 2, 99);//1,2,99
+dq.insert(dq.begin() + 1, 3, 0); //1,0,0,0,2,99
+dq.insert(dq.begin(), arr, arr + 2);//1,2,1,0,0,0,2,99
+dq.insert(dq.end(), {2, 3, 4});//1,2,1,0,0,0,2,99,2,3,4
+
+dq.clear();//size=0
+
+/* Relational operators
+== != > < >= <= -> lexicographical
+*/
+```
+
+---
+
+## &lt;forward_list&gt;
+
+[View Index](#stl-components)
+
+```C++
+/* Initialization */
+int arr[] {1, 2, 3, 4, 5};
+
+forward_list<int> fl;//empty
+forward_list<int> fl1(5, 0); //0,0,0,0,0
+forward_list<int> fl2(arr, arr + 3); //1,2,3
+forward_list<int> fl3({1, 2, 3, 4, 5}); //1,2,3,4,5
+forward_list<int> fl4(fl3);//1,2,3,4,5
+fl=fl1;
+fl={1,2,3,4,5};
+
+/* Iterators
+- [before_begin, cbefore_begin] -> Should not be dereferenced; Used as an argument in (insert_after, splice_after, erase_after), begin, end, cbegin, cend
+*/
+
+//Looping
+for (int i : fl1)cout << i << " ";
+//OR
+for (forward_list<int>::iterator itr = fl1.begin(); itr != fl1.end(); ++itr)cout << *itr << " ";
+
+//Capacity
+fl.empty();//true|false
+
+//Element access
+fl.front();
+
+//Modifiers
+fl.push_front(99);
+fl.pop_front();
+
+fl.resize(3);//1,2,3
+fl.resize(4);//1,2,3,0
+fl.resize(5,99);//1,2,3,0,99
+
+fl.assign(arr, arr+3);//1,2,3
+fl.assign(5,0);//0,0,0,0,0
+fl.assign({1,2,3,4,4});//1,2,3,4,5
+
+forward_list<int>::iterator itr = fl.before_begin();
+fl.insert_after(itr, 99);//->99 1 2 3 4 5
+fl.insert_after(++itr, {0, 0, 0});//99 ->0 0 0 1 2 3 4 5
+fl.insert_after(itr, 2, 1);//99 ->1 1 0 0 0 1 2 3 4 5
+fl.insert_after(itr, arr, arr + 3);//99 ->1 2 3 1 1 0 0 0 1 2 3 4 5
+
+fl.erase_after(itr);//->99 2 3 1 1 0 0 0 1 2 3 4 5
+fl.erase_after(fl.before_begin(), (advance(itr, 5), itr));//range to clean; ->0 0 0 1 2 3 4 5
+
+fl.clear();//empty
+
+//Operations
+advance(itr, 7);//fl->0 0 1 2 3 4 5<-
+fl.splice_after(itr, fl4);//fl-> fl+fl4, fl4->empty
+//OR
+fl.splice_after(itr, fl4, fl4.begin());//fl->0 0 0 1 2 3 4 5 2 , fl4->1 3 4 5
+//OR
+forward_list<int>::iterator itr1 = fl4.begin();
+fl.splice_after(itr, fl4, fl4.before_begin(), (advance(itr1, 3), itr1));//fl->0 0 0 1 2 3 4 5 1 2 3, fl4-> ->4 5
+
+fl.remove(0);
+/* unary predicate returns true if that element is to be removed */
+bool removeEven(const int& val) {
+	return (val & 1) == 0 ? true : false;
+}
+
+class removeOdd {
+public:
+	bool operator()(const int& val) {
+		return (val & 1) == 1 ? true : false;
+	}
+} removeOddObj;
+fl.remove_if(removeEven);
+fl.remove_if(removeOddObj);
+fl.remove_if(removeOdd());
+
+fl.unique();//removes all the duplicates
+/* binary predicate return true if the first element should be removed */
+bool removeUniques(const int& val1, const int& val2) {
+	return ((val1 < 2 and val2 < 2) & (val1 == val2)) == true ? true : false;
+}
+
+class removeUniques {
+public:
+	bool operator()(const int& val1, const int& val2) {
+		return ((val1 >= 2 and val2 >= 2) & (val1 == val2)) == true ? true : false;
+	}
+} removeUniquesObj;
+fl.unique(removeUniques);
+fl.unique(removeUniquesObj);
+
+/* Both containers should be ordered */
+fl.merge(fl1);//fl1 becomes empty
+/* Binary predicate returns true if first element should go before the second element */
+fl.merge(fl1,greater<int>());
+
+fl.sort();
+/* Binary predicate returns true if the first element should go before the second elemnt */
+fl.sort(greater<int>());
+
+fl.reverse();
+
+/* Relational operators
+== != > < >= <=
+*/
+```
+
+---
+
+## &lt;stack&gt;
+
+[View Index](#stl-components)
+
+- It is a container adaptor
+- By default the underlying container is `deque` but `vector` and `list` can also be used
+
+```C++
+/* Initialization */
+vector<int> v{1, 2, 3, 4, 5};
+list<int> l{1, 2, 3, 4, 5};
+deque<int>d{1, 2, 3, 4, 5};
+
+stack<int> st1;
+stack<int, vector<int>> st2(v);
+stack<int, list<int>> st3(l);
+stack<int, deque<int>> st4(d);//equivalent to st1
+
+st1.size();
+st.empty();//true|false
+
+st1.top();
+st1.push(99);
+st1.pop();
+
+/* Relational operators
+==, !=, >, <, >=, <= -> lexicographical
+*/
+```
+
+---
+
+## &lt;queue&gt;
+
+[View Index](#stl-components)
+
+- It is a container adaptor
+- By default the underlying container is `deque` but `list` can also be used
+
+```C++
+/* Initialization */
+list<int> l{1, 2, 3, 4, 5};
+deque<int>d{1, 2, 3, 4, 5};
+
+queue<int> q1;
+queue<int, list<int>> q2(l);
+queue<int, deque<int>> q3(d);//equivalent to q1
+
+q1.size();
+q1.empty();
+
+q1.push(99);
+q1.pop();
+q1.front();
+q1.back();
+
+/* Relational operators
+==, !=, >, <, >=, <= -> lexicographical
+*/
+```
+
+---
+
+## &lt;queue&gt;->priority_queue
+
+[View Index](#stl-components)
+
+- It is a container adaptor
+- By default the underlying container is `vector` but `dequeue` can also be used
+
+```C++
+/* Initialization */
+vector<int> v{1, 2, 3, 4, 5};
+deque<int>d{1, 2, 3, 4, 5};
+
+priority_queue<int>pq1;//max heap; empty
+priority_queue<int, vector<int>, greater<int>>pq2(v.begin(), v.end()); //min heap
+priority_queue<int, deque<int>>pq3(d.begin(), d.end()); //max heap
+priority_queue<int, deque<int>, greater<int>>pq4(d.begin(), d.end()); //min heap
+priority_queue<int, vector<int>>pq5; //equivalent to pq1
+
+class comparator {
+	bool reverse;
+public:
+	comparator(const bool & reverse = false) {
+		this->reverse = reverse;
+	}
+	bool operator()(const int&val1, const int& val2) {
+		return reverse ? (val1 > val2) : (val1 < val2);
+	}
+};
+priority_queue<int, vector<int>, comparator>pq7; //max heap
+priority_queue<int, vector<int>, comparator>pq8(comparator(true));//min heap
+
+pq1.empty();
+pq1.size();
+
+pq1.top();
+pq1.push(99);
+pq1.pop();
+```
+
+---
+
 ## &lt;string&gt;
+
+[View Index](#stl-components)
 
 ```C++
 /* Initialization */
@@ -115,386 +657,4 @@ s1.replace(0, 2, 3, '*');//***llo
 
 ---
 
-## &lt;array&gt;
-
-```C++
-/* Initialization */
-array<int, 5> arr{1, 2, 3, 4, 5};
-
-/* Looping */
-for (int i : arr)cout << i << " ";//"int &i" to modify
-//OR
-for (int i = 0; i < arr.size(); ++i)cout << arr[i] << " ";
-//OR
-for (array<int, 5>::iterator itr = arr.begin(); itr != arr.end(); ++itr)cout << *itr << " ";
-//OR
-int* ptr = arr.data();//Pointer to first element
-for (int i = 0; i < 5; ++i)cout << *(ptr + i) << " ";
-
-/* Iterators
-- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
-*/
-
-/* Methods */
-arr.size();//5
-arr.empty();//true|false
-
-arr.front();//1
-arr.back();//5
-
-arr.fill(0);//0 0 0 0 0
-
-arr.swap();
-
-arr[pos];//access elements
-
-get<pos>(arr);//access elements
-
-arr1==arr2;//== != > < >= <=
-
-```
-
----
-
-## &lt;vector&gt;
-
-```C++
-/* Initialization */
-vector<int> arr;//empty
-vector<int>arr1{1, 2, 3, 4, 5};//Initializer list
-vector<int>arr2(5, 0);//fill; 0,0,0,0,0
-vector<int>arr3(arr1.begin(), arr1.begin() + 3);//1,2,3
-vector<int>arr4(arr1);//copy
-arr4=arr2;//arr4-> 0,0,0,0,0
-
-
-/* Iterators
-- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
-*/
-
-
-/* Looping */
-for (int i : arr1)cout << i << " ";//use "int &i" to modify
-//OR
-for (vector<int>::iterator itr = arr1.begin(); itr != arr1.end(); ++itr)
-	cout << *itr << " ";
-//OR
-for (int i = 0; i < arr1.size(); ++i)cout << arr1[i] << " ";
-//OR
-int *ptr = arr.data();//returns the pointer
-for (int i = 0; i < arr.size(); ++i)cout << *(ptr + i) << " ";
-
-
-/* Methods */
-arr1.push_back(9);//1,2,3,4,5,9
-arr1.pop_back();//1,2,3,4,5
-
-arr1.size();//number of elements
-arr1.capacity();//>=size
-arr1.reserve(20);//20>arr1.capacity()?capacity=20:capacity=arr1.capacity();
-arr1.empty();//true|false
-
-//Resize
-arr1.resize(3);//1,2,3
-arr1.resize(5);//1,2,3,0,0
-
-//Erase
-arr1.erase(arr.begin()+3);//1,2,3,0
-arr1.erase(arr.begin(),arr.begin()+2);//3,0
-
-arr1.front();//1
-arr1.back();//0
-arr1.clear();//size=0
-
-//Assign
-arr1.assign(arr.begin(), arr.end());
-arr1.assign({1, 2, 3});
-int array[] {9, 8, 7, 6, 5};
-arr1.assign(array, array + 3);//9,8,7
-
-//Insert
-arr.insert(arr.begin() + 2, 99);//9,8,99,7
-arr.insert(arr.begin() + 2, 3, 0);//9,8,0,0,0,99,7
-arr.insert(arr.begin(), arr.begin(), arr.begin() + 2);//9,8,9,8,0,0,0,99,7
-
-/* relational operators
-== != > < >= <= -> lexicographical
- */
-```
-
----
-
-## &lt;list&gt;
-
-```C++
-/* Initialization */
-list<int> l1;//empty
-list<int> l2{1, 2, 3, 4, 5};//1,2,3,4,5
-list<int> l3(l2);//copy
-list<int>l4(5, 0);//0,0,0,0,0 ; fill
-list<int>l5;
-l5 = l4;
-l5 = {1, 2, 3, 4, 5};
-list<int>::iterator itr = l2.begin();
-list<int>l6(l2.begin(), (advance(itr, 3), itr));//1,2,3
-
-
-/* Looping */
-for (int i : l2)cout << i << " ";//"int &i" to modify
-//OR
-for (list<int>::iterator itr = l2.begin(); itr != l2.end(); ++itr)cout << *itr << " ";
-
-/* Iterators
-- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
-*/
-
-/* Methods */
-l2.empty();//true|false
-l2.size();//number of elements
-
-l2.front();//1
-l2.back();//5
-
-l2.push_front(99);//99,1,2,3,4,5
-l2.pop_front();//1,2,3,4,5
-l2.push_back(99);//1,2,3,4,5,99
-l2.pop_back();//1,2,3,4,5
-
-l2.assign(3,0);//0,0,0
-l2.assign(l4.begin(),l4.end());//0,0,0,0,0
-l2.assign({1,2,3,4,5});//1,2,3,4,5
-
-l2.insert( (itr = l2.end(), advance(itr, -2), itr), 99); //1,2,3,99,4,5
-l2.insert(++l2.begin(), 3, 0); //1,0,0,0,2,3,99,4,5
-l2.insert(++l2.begin(), l4.begin(), l4.end());//1,0,0,0,0,0,0,0,0,2,3,99,4,5
-l2.insert(++l2.begin(), {9, 8, 7});//1,9,8,7,0,0,0,0,0,0,0,0,2,3,99,4,5
-
-l2.erase(l2.begin());//9,8,7,0,0,0,0,0,0,0,0,2,3,99,4,5
-l2.erase(l2.begin(), (advance(itr, -1), itr));//99,4,5
-
-l2.resize(5);//99,4,5,0,0
-l2.resize(8, 99);//99,4,5,0,0,99,99,99
-l2.resize(5);//99,4,5,0,0
-
-l2.clear();//size=0
-
-l2.splice(++l2.begin(), l5);//99,1,2,3,4,5,4,5,0,0 ; l5->empty
-l2.splice(++l2.begin(), l5, l5.begin(), --l5.end());//99,1,2,3,4,4,5,0,0 ; l5->5
-l2.splice(++l2.begin(), l5, ++l5.begin());//99,2,4,5,0,0 ; l5->1,3,4,5
-
-l2.remove(0);//99,2,4,5
-
-
-/* Accepts predicate */
-bool is_even(const int& val) {
-	return (val & 1) == 0 ? true : false;
-}
-
-class is_odd {
-public:
-	bool operator()(const int& val) {
-		return (val & 1 ) ==  1 ? true : false;
-	}
-};
-l2.remove_if(is_even);//99,5
-l2.remove_if(is_odd());//empty
-
-l2 = {1, 2, 2, 3, 3, 4, 5, 6, 7, 7, 8, 8, 9};
-l2.unique();//removes all the duplicates
-/* Accepts binary predicate : removes the first element on returning true*/
-bool is_even(const int& val1, const int& val2) {
-	return ((val1 == val2) && (!(val1 & 1) && !(val2 & 1))) ? true : false;
-}
-
-class is_odd {
-public:
-	bool operator()(const int& val1, const int&val2) {
-		return ((val1 == val2) && ((val1 & 1) && (val2 & 1))) ? true : false;
-	}
-};
-l2.unique(is_even);//removes all even duplicate pairs
-l2.unique(is_odd());//removes all odd duplicate pairs
-
-l1 = {1, 3, 5, 7};
-l2 = {2, 4, 5, 6, 8, 9};
-//l1 and l2 should be sorted
-l2.merge(l1);//l2->1,2,3,4,5,5,6,7,8,9 ; l1->empty
-//if Binary Predicate returns true then the first element (in the argument of the predicate) goes first
-l2.merge(l1, binaryPredicate);
-
-l2.reverse();
-
-l2.sort();
-l2.sort(binaryPredicate);
-
-/* Relational operators
-==, !=, > , < ,>=, <= -> lexicographical
-*/
-```
-
----
-
-## &lt;stack&gt;
-
-- It is a container adaptor
-- By default the underlying container is `deque` but `vector` and `list` can also be used
-
-```C++
-/* Initialization */
-vector<int> v{1, 2, 3, 4, 5};
-list<int> l{1, 2, 3, 4, 5};
-deque<int>d{1, 2, 3, 4, 5};
-
-stack<int> st1;
-stack<int, vector<int>> st2(v);
-stack<int, list<int>> st3(l);
-stack<int, deque<int>> st4(d);//equivalent to st1
-
-st1.size();
-st.empty();//true|false
-
-st1.top();
-st1.push(99);
-st1.pop();
-
-/* Relational operators
-==, !=, >, <, >=, <= -> lexicographical
-*/
-```
-
----
-
-## &lt;queue&gt;
-
-- It is a container adaptor
-- By default the underlying container is `deque` but `list` can also be used
-
-```C++
-/* Initialization */
-list<int> l{1, 2, 3, 4, 5};
-deque<int>d{1, 2, 3, 4, 5};
-
-queue<int> q1;
-queue<int, list<int>> q2(l);
-queue<int, deque<int>> q3(d);//equivalent to q1
-
-q1.size();
-q1.empty();
-
-q1.push(99);
-q1.pop();
-q1.front();
-q1.back();
-
-/* Relational operators
-==, !=, >, <, >=, <= -> lexicographical
-*/
-```
-
----
-
-## &lt;queue&gt;->priority_queue
-
-- It is a container adaptor
-- By default the underlying container is `vector` but `dequeue` can also be used
-
-```C++
-/* Initialization */
-vector<int> v{1, 2, 3, 4, 5};
-deque<int>d{1, 2, 3, 4, 5};
-
-priority_queue<int>pq1;//max heap; empty
-priority_queue<int, vector<int>, greater<int>>pq2(v.begin(), v.end()); //min heap
-priority_queue<int, deque<int>>pq3(d.begin(), d.end()); //max heap
-priority_queue<int, deque<int>, greater<int>>pq4(d.begin(), d.end()); //min heap
-priority_queue<int, vector<int>>pq5; //equivalent to pq1
-
-class comparator {
-	bool reverse;
-public:
-	comparator(const bool & reverse = false) {
-		this->reverse = reverse;
-	}
-	bool operator()(const int&val1, const int& val2) {
-		return reverse ? (val1 > val2) : (val1 < val2);
-	}
-};
-priority_queue<int, vector<int>, comparator>pq7; //max heap
-priority_queue<int, vector<int>, comparator>pq8(comparator(true));//min heap
-
-pq1.empty();
-pq1.size();
-
-pq1.top();
-pq1.push(99);
-pq1.pop();
-```
-
----
-
-## &lt;deque&gt;
-
-```C++
-/* Initialization */
-int arr[] {1, 2, 3};
-vector<int> v{1, 2, 3, 4, 5};
-
-deque<int> dq;//empty
-deque<int> dq1(3);//0,0,0
-deque<int> dq2(3, 99); //99,99,99
-deque<int> dq3{1, 2, 3, 4, 5}; //1,2,3,4,5
-deque<int> dq4(dq3);//1,2,3,4,5
-deque<int> dq5(arr, arr + (sizeof(arr) / sizeof(int))); //1,2,3
-deque<int> dq6(v.begin(), v.end() - 2); //1,2,3
-dq=dq1;//0,0,0
-dq={1,2,3,4,5};//1,2,3,4,5
-
-/* Iterators
-- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
-*/
-
-//Looping
-for (int i : dq)cout << i << " ";//use 'int &i' to modify
-//OR
-for (int i = 0; i < dq.size(); ++i)cout << dq[i] << " ";
-//OR
-for (deque<int>::iterator itr = dq.begin(); itr != dq.end(); ++itr)cout << *itr << " ";
-
-//Capacity
-dq.size();
-dq.empty();//true|false
-dq.resize(3);//1,2,3
-dq.resize(4);//1,2,3,0
-dq.resize(5,99);//1,2,3,0,99
-
-//Element access
-dq[3];//0
-dq.at(3);//0
-dq.front();//1
-dq.back();//99
-
-//Modifiers
-dq.push_back(0);
-dq.pop_back();
-dq.push_front(0);
-dq.pop_front();
-
-dq.assign(dq1.begin(),dq1.end()-1);//0,0
-dq.assign(arr,arr+3);//1,2,3
-dq.assign(3,1);//1,1,1
-dq.assign({1,2,3,0,99});//1,2,3,0,99
-
-dq.erase(dq.begin() + 3); //1,2,3,99
-dq.erase(dq.begin() + 2, dq.begin() + 4);//1,2
-
-dq.insert(dq.begin() + 2, 99);//1,2,99
-dq.insert(dq.begin() + 1, 3, 0); //1,0,0,0,2,99
-dq.insert(dq.begin(), arr, arr + 2);//1,2,1,0,0,0,2,99
-dq.insert(dq.end(), {2, 3, 4});//1,2,1,0,0,0,2,99,2,3,4
-
-dq.clear();//size=0
-
-/* Relational operators
-== != > < >= <= -> lexicographical
-*/
-```
+## &lt;&gt;
