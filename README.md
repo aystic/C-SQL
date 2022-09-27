@@ -729,7 +729,7 @@ itrRange = mp5.equal_range('c');//itrRange.first->('c',3), itrRange.second->('b'
 
 ---
 
-## &lt;<map>&gt;->multimap
+## &lt;map&gt;->multimap
 
 [View Index](#stl-components)
 
