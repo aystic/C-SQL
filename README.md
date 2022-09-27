@@ -16,8 +16,8 @@
   - Associative Containers
     - [Set](#set)
     - [Multiset](#set-multiset)
-    - Map
-    - Multimap
+    - [Map](#map)
+    - [Multimap](#map-multimap)
   - Unordered Associative Container
     - Unordered Set
     - Unordered Multiset
@@ -725,7 +725,72 @@ mp.upper_bound('a');//iterator to upper bound
 typedef map<char, int, compareClass>::iterator itrType;
 pair<itrType, itrType> itrRange;
 itrRange = mp5.equal_range('c');//itrRange.first->('c',3), itrRange.second->('b',2)
+```
 
+---
+
+## &lt;<map>&gt;->multimap
+
+[View Index](#stl-components)
+
+```C++
+/* Initialization */
+class compareClass {
+public:
+	bool operator() (const char& val1, const char& val2) const {
+		return val1 > val2;
+	}
+} ;
+
+bool compare(const char& val1, const char& val2) {
+	return val1 > val2;
+}
+
+pair<char, int>arr[] {{'a', 1}, {'b', 2}, {'c', 3}, {'d', 4}};
+
+multimap<char, int>mmp;
+multimap<char, int>mmp1(arr, arr + 3);
+multimap<char, int>mmp2(mmp1);
+multimap<char, int>mmp3({{'a', 1}, {'b', 2}, {'c', 3}, {'d', 4}});
+bool(*fnPtr)(const char&, const char&) = compare;
+multimap<char, int, bool(*)(const char&, const char&)>mmp4({{'a', 1}, {'b', 2}, {'c', 3}}, fnPtr);
+multimap<char, int, compareClass>mmp5({{'a', 1}, {'b', 2}, {'c', 3}, {'d', 4}});
+
+/* Iterators
+- begin, end, rbegin, rend, cbegin, cend, crbegin, crend
+*/
+
+//Looping
+for (pair<char, int> p : mmp5)cout << p.first << " " << p.second << endll;
+//OR
+for (map<char, int,compareClass>::iterator itr = mmp5.begin(); itr != mmp5.end(); ++itr)cout << "(" << (*itr).first << "," << (*itr).second << ") ";
+
+//Capacity
+mmp.empty();
+mmp.size();
+
+//Modifiers
+multimap<char, int, compareClass>::iterator itr = mmp5.find('c');
+mmp5.erase(--mmp5.end());//deletes last key-val pair
+mmp5.erase(itr, mmp5.end());//deletes (c,3),(b,2) key-val pair
+mmp5.erase('d');//deletes (d,4) key-val pair
+
+mmp5.insert({'a', 1});
+mmp5.insert(hint,first_itr,last_itr);
+mmp5.insert(first_itr,last_itr);
+mmp5.insert({{'c', 3}, {'d', 4}});
+
+mmp.clear();//empty
+
+//Operations
+mmp.find('a');//returns itr if element found, mmp.end() otherwise; (*itr).first->'a',(*itr).second->1
+mmp.count('a');
+mmp.lower_bound('a');//iterator to lower bound
+mmp.upper_bound('a');//iterator to upper bound
+
+typedef multimap<char, int, compareClass>::iterator itrType;
+pair<itrType, itrType> itrRange;
+itrRange = mmp5.equal_range('c');
 ```
 
 ---
