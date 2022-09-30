@@ -795,6 +795,97 @@ itrRange = mmp5.equal_range('c');
 
 ---
 
+## &lt;unordered_map&gt;
+
+[View Index](#stl-components)
+
+```C++
+/* Initialization */
+pair<char, int>arr[] {{'a', 1}, {'b', 2}, {'c', 3}, {'d', 4}};
+
+unordered_map<char, int> um; //empty
+unordered_map<char, int> um1({{'a', 1}, {'b', 2}, {'c', 3}, {'d', 4}}); //initializer list
+unordered_map<char, int> um2(um1); //copy
+unordered_map<char, int> um3(arr, arr + 3); //range
+um=um1;
+um={{'a', 1}, {'b', 2}, {'c', 3}, {'d', 4}};
+
+
+//Capacity
+um.empty();//true|false
+um.size();//number of elements//
+
+/* Iterators
+begin, end, cbegin, cend
+*/
+
+
+//Element lookup
+unordered_map<char, int>::iterator itr = um.find('c');//returns iterator or um.end(), *itr.first,*itr.second
+
+um.count('c');//1 or 0
+
+typedef unordered_map<char, int>::iterator itrType;
+pair <itrType, itrType> itrPair = um.equal_range('b');
+
+
+//Modifiers
+um.clear();
+
+um.insert({'e', 5});
+
+unordered_map<char, int>::iterator itr = um1.begin();
+advance(itr, 2);
+um.insert(um1.begin(), itr);
+
+um.insert({{'f', 6}, {'g', 7}});
+
+um.erase('e');
+
+um.erase(um.begin());
+
+itr=um.begin();
+advance(itr,2);
+um.erase(um.begin(),itr);
+
+
+//Buckets
+/*
+A bucket is a slot in the container's internal hash table to which elements are assigned based on the hash value of their key.
+*/
+int n = um.bucket_count();//number of buckets
+for (int i = 0; i < n; ++i) {
+	cout << "bucket #" << i << " contains: ";
+	for (auto it = um.begin(i); it != um.end(i); ++it)
+		cout << "[" << it->first << ":" << it->second << "] ";
+	cout << endll;
+}
+
+int buckets = um.bucket_count();
+for (int i = 0; i < buckets; ++i) {
+	cout << um.bucket_size(i) << endll;//element in each bucket
+}
+
+um.bucket('e');//returns the bucket containing the key 'e'
+
+
+//Hash policy
+um.load_factor();//current load factor
+um.max_load_factor();//max load factor; get
+um.max_load_factor(0.5)//set
+um.rehash(20);//20 -> number of buckets; 20>um.bucket_count() ->rehashed is forced else may not rehash
+um.reserve(20);//sets the number of buckets to the most appropriate to contain atleast 20 elements; n>bucket_count*max_load_factor -> bucket_count is increased and rehash is forced else nothing happens
+
+//Observers
+unordered_map<char, int>::hasher hashFn = um.hash_function();//hashFn('a');
+
+/* Relational operators
+== !=
+*/
+```
+
+---
+
 ## &lt;string&gt;
 
 [View Index](#stl-components)
