@@ -30,6 +30,7 @@
   - [limits](#limits)
   - [utility](#utility)
   - [tuple](#tuple)
+  - [bitset](#bitset)
 
 ---
 
@@ -1132,3 +1133,48 @@ get<2>(t1);//3
 int a, b, c;
 tie(a, b, c) = t4;//a->1,b->2,c->3
 ```
+
+---
+
+## &lt;bitset&gt;
+
+[View Index](#stl-components)
+
+```C++
+bitset<10> b;//0000000000
+bitset<10> b1(12345);//0000111001
+bitset<10>b2("10101010");//0010101010
+cin>>b;
+cout<<b;
+
+/* Relational operators
+&=,|=,^=,<<=,>>=,~,<<,>>,==,!=,&,|,^
+*/
+
+//Bit Access
+b1[0]=1;
+b.test(0);//0->pos, true|false
+b.count();//no of set bits
+b.size();//total bits
+b.any();//true|false; atleast one bit set
+b.none();//true|false; if 0 bits are set
+b.all();//true|false; all bit set?
+
+//Bit operations
+b.set();//set all bits
+b.set(2,0);//make 2nd bit 0
+b.reset();//reset all bits
+b.reset(2);//reset 2nd bit
+b.flip();//flip all bits
+b.flip(2);//flip bit at 2nd pos
+
+//Bitset Operations
+string s;
+s=b.to_string();
+unsigned long int uli;
+uli = b1.to_ulong();
+unsigned long long ulli;
+ulli = b1.to_ullong();
+```
+
+---
