@@ -19,9 +19,9 @@
     - [Map](#map)
     - [Multimap](#map-multimap)
   - Unordered Associative Container
-    - Unordered Set
+    - [Unordered Set](#unordered_set)
     - Unordered Multiset
-    - Unordered Map
+    - [Unordered Map](#unordered_map)
     - Unordered Multimap
 - Algorithms
 - Others
@@ -878,6 +878,70 @@ um.reserve(20);//sets the number of buckets to the most appropriate to contain a
 
 //Observers
 unordered_map<char, int>::hasher hashFn = um.hash_function();//hashFn('a');
+
+/* Relational operators
+== !=
+*/
+```
+
+---
+
+## &lt;unordered_set&gt;
+
+[View Index](#stl-components)
+
+```C++
+/* Initialization */
+int arr[] {1, 2, 3, 4, 5};
+
+unordered_set<int> us;
+unordered_set<int> us1({1, 2, 3, 4, 5});
+unordered_set<int> us2(us1);
+unordered_set<int> us3(arr, arr + 3);
+us = us1;
+us = {5, 6, 7, 8, 9};
+
+//Capacity
+us.empty();
+us.size();
+
+/* Iterators
+begin, end, cbegin, cend
+*/
+
+//Element lookup
+unordered_set<int>::iterator itr = us.find(8);//itr to element or us.end()
+us.count(5);//0 or 1
+
+typedef unordered_set<int>::iterator itrType;
+pair<itrType, itrType> itrRange = us.equal_range(6);//gives pair of itr to lowerbound and upperbound
+
+//Modifiers
+us.clear();//empty
+
+pair<itrType, bool> temp = us.insert(5);//return <itr,true|false>
+itrType itr = us.insert(us.begin(), 10);//hint, value to insert ; returns iterator
+us.insert(arr, arr + 3);//range
+us.insert({1, 2, 3});
+
+us.erase(2);
+us.erase(us.begin());
+us.erase(us.begin(), (advance(itr, 2), itr));
+
+//Buckets
+us.bucket_count();
+us.bucket_size(3);//3<bucket_count; 3->bucket number
+us.bucket(2);//2->element
+
+//Hash policy
+us.load_factor();
+us.max_load_factor();//get
+us.max_load_factor(2);//set
+us.rehash(10);//10->bucket count; if 10>bucket_count -> rehash is forced with new bucket count >= 10 else no effect
+us.reserve(10);//10-> number of elements; sets appropriate numbers of buckets for 10 elements; if 10>bucket_count*max_load_factor -> bucket count is increased and rehash is forced
+
+//Observers
+unordered_set<int>::hasher hashFn = us.hash_function();
 
 /* Relational operators
 == !=
