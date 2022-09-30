@@ -26,6 +26,10 @@
 - Algorithms
 - Others
   - [String](#string)
+  - [iomanip](#iomanip)
+  - [limits](#limits)
+  - [utility](#utility)
+  - [tuple](#tuple)
 
 ---
 
@@ -1066,3 +1070,65 @@ s1.replace(0, 2, 3, '*');//***llo
 ```
 
 ---
+
+## &lt;iomanip&gt;
+
+[View Index](#stl-components)
+
+```C++
+cout << setbase(16);//sets the base for outputting numbers
+cout << setw(10);//sets the width of output
+cout<<setfill('x');//sets the fill character for padding
+cout << setfill('x') << setw(5);//xx100
+
+cout << setprecision(4);
+cout << 100.12345 << endll;//100.1
+
+cout << fixed;
+cout << setprecision(2);
+cout << 100.12345 << endll;//100.12
+```
+
+---
+
+## &lt;limits&gt;
+
+[View Index](#stl-components)
+
+```C++
+numeric_limits<T>::max();
+numeric_limits<T>::min();
+numeric_limits<T>::digits;
+numeric_limits<T>::digits10;
+```
+
+---
+
+## &lt;utility&gt;
+
+[View Index](#stl-components)
+
+```C++
+pair<int, int> p;
+pair<int, int> p1(1, 10);
+pair<int, int> p2(p1);
+p = make_pair(10, 99);
+cout << p.first << " " << p.second << endll;
+```
+
+---
+
+## &lt;tuple&gt;
+
+[View Index](#stl-components)
+
+```C++
+tuple<int, int> t(10, 20);
+tuple<int, int, int> t1(1, 2, 3);
+tuple<int, int, int, int>t2(1, 2, 3, 4);
+tuple<int,int,int>t3(t1);
+t2 = make_tuple(7, 8, 9, 0);
+get<2>(t1);//3
+int a, b, c;
+tie(a, b, c) = t4;//a->1,b->2,c->3
+```
