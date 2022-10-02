@@ -2095,6 +2095,104 @@ unordered_map&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keywo
 */</span>
 </div></code></pre>
     <hr />
+    <h2 id="unordered_map---unordered_multimap">
+      &lt;unordered_map&gt; -&gt; unordered_multimap
+    </h2>
+    <p><a href="#stl-components">View Index</a></p>
+    <ul>
+      <li>Associative containers (key-value mapping)</li>
+      <li>Keys <strong>can have</strong> equivalent values</li>
+      <li>Fast retrieval based on keys</li>
+      <li>Elements are <strong>not sorted</strong> in any particular order</li>
+      <li>
+        Elements are <strong>organized into buckets</strong> based on their
+        <strong>hash values</strong>
+      </li>
+    </ul>
+    <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
+pair&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt;arr[] {{<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">1</span>}, {<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">2</span>}, {<span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-number">3</span>}, {<span class="hljs-string">&#x27;d&#x27;</span>, <span class="hljs-number">4</span>}};
+
+unordered_multimap&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt; umm; <span class="hljs-comment">//empty</span>
+<span class="hljs-function">unordered_multimap&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt; <span class="hljs-title">umm1</span><span class="hljs-params">({{<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">1</span>}, {<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">2</span>}, {<span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-number">3</span>}, {<span class="hljs-string">&#x27;d&#x27;</span>, <span class="hljs-number">4</span>}})</span></span>; <span class="hljs-comment">//initializer list</span>
+<span class="hljs-function">unordered_multimap&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt; <span class="hljs-title">umm2</span><span class="hljs-params">(umm1)</span></span>; <span class="hljs-comment">//copy</span>
+<span class="hljs-function">unordered_multimap&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt; <span class="hljs-title">umm3</span><span class="hljs-params">(arr, arr + <span class="hljs-number">3</span>)</span></span>; <span class="hljs-comment">//range</span>
+umm = umm1;
+umm = {{<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">1</span>}, {<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">2</span>}, {<span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-number">3</span>}, {<span class="hljs-string">&#x27;d&#x27;</span>, <span class="hljs-number">4</span>}};
+
+
+<span class="hljs-comment">//Capacity</span>
+umm.<span class="hljs-built_in">empty</span>();<span class="hljs-comment">//true|false</span>
+umm.<span class="hljs-built_in">size</span>();<span class="hljs-comment">//number of elements//</span>
+
+<span class="hljs-comment">/* Iterators
+begin, end, cbegin, cend
+*/</span>
+
+
+<span class="hljs-comment">//Element lookup</span>
+unordered_multimap&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt;::iterator itr = umm.<span class="hljs-built_in">find</span>(<span class="hljs-string">&#x27;c&#x27;</span>);<span class="hljs-comment">//returns iterator or umm.end(), *itr.first,*itr.second</span>
+
+umm.<span class="hljs-built_in">count</span>(<span class="hljs-string">&#x27;c&#x27;</span>);<span class="hljs-comment">//0 or the count of the element</span>
+
+<span class="hljs-keyword">typedef</span> unordered_multimap&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt;::iterator itrType;
+pair &lt;itrType, itrType&gt; itrPair = umm.<span class="hljs-built_in">equal_range</span>(<span class="hljs-string">&#x27;b&#x27;</span>);
+
+
+<span class="hljs-comment">//Modifiers</span>
+umm.<span class="hljs-built_in">clear</span>();
+
+umm.<span class="hljs-built_in">insert</span>({<span class="hljs-string">&#x27;e&#x27;</span>, <span class="hljs-number">5</span>});
+
+unordered_multimap&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt;::iterator itr = umm1.<span class="hljs-built_in">begin</span>();
+<span class="hljs-built_in">advance</span>(itr, <span class="hljs-number">2</span>);
+umm.<span class="hljs-built_in">insert</span>(umm1.<span class="hljs-built_in">begin</span>(), itr);
+
+umm.<span class="hljs-built_in">insert</span>({{<span class="hljs-string">&#x27;f&#x27;</span>, <span class="hljs-number">6</span>}, {<span class="hljs-string">&#x27;g&#x27;</span>, <span class="hljs-number">7</span>}});
+
+umm.<span class="hljs-built_in">erase</span>(<span class="hljs-string">&#x27;e&#x27;</span>);
+
+umm.<span class="hljs-built_in">erase</span>(umm.<span class="hljs-built_in">begin</span>());
+
+itr=umm.<span class="hljs-built_in">begin</span>();
+<span class="hljs-built_in">advance</span>(itr,<span class="hljs-number">2</span>);
+umm.<span class="hljs-built_in">erase</span>(umm.<span class="hljs-built_in">begin</span>(),itr);
+
+
+<span class="hljs-comment">//Buckets</span>
+<span class="hljs-comment">/*
+A bucket is a slot in the container&#x27;s internal hash table to which elements are assigned based on the hash value of their key.
+*/</span>
+<span class="hljs-keyword">int</span> n = umm.<span class="hljs-built_in">bucket_count</span>();<span class="hljs-comment">//number of buckets</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) {
+	cout &lt;&lt; <span class="hljs-string">&quot;bucket #&quot;</span> &lt;&lt; i &lt;&lt; <span class="hljs-string">&quot; contains: &quot;</span>;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> it = umm.<span class="hljs-built_in">begin</span>(i); it != umm.<span class="hljs-built_in">end</span>(i); ++it)
+		cout &lt;&lt; <span class="hljs-string">&quot;[&quot;</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="hljs-string">&quot;:&quot;</span> &lt;&lt; it-&gt;second &lt;&lt; <span class="hljs-string">&quot;] &quot;</span>;
+	cout &lt;&lt; endll;
+}
+
+<span class="hljs-keyword">int</span> buckets = umm.<span class="hljs-built_in">bucket_count</span>();
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; buckets; ++i) {
+	cout &lt;&lt; umm.<span class="hljs-built_in">bucket_size</span>(i) &lt;&lt; endll;<span class="hljs-comment">//element in each bucket</span>
+}
+
+umm.<span class="hljs-built_in">bucket</span>(<span class="hljs-string">&#x27;e&#x27;</span>);<span class="hljs-comment">//returns the bucket containing the key &#x27;e&#x27;</span>
+
+
+<span class="hljs-comment">//Hash policy</span>
+umm.<span class="hljs-built_in">load_factor</span>();<span class="hljs-comment">//current load factor</span>
+umm.<span class="hljs-built_in">max_load_factor</span>();<span class="hljs-comment">//max load factor; get</span>
+umm.<span class="hljs-built_in">max_load_factor</span>(<span class="hljs-number">0.5</span>);<span class="hljs-comment">//set</span>
+umm.<span class="hljs-built_in">rehash</span>(<span class="hljs-number">20</span>);<span class="hljs-comment">//20 -&gt; number of buckets; 20&gt;umm.bucket_count() -&gt;rehashed is forced else may not rehash</span>
+umm.<span class="hljs-built_in">reserve</span>(<span class="hljs-number">20</span>);<span class="hljs-comment">//sets the number of buckets to the most appropriate to contain atleast 20 elements; n&gt;bucket_count*max_load_factor -&gt; bucket_count is increased and rehash is forced else nothing happens</span>
+
+<span class="hljs-comment">//Observers</span>
+unordered_multimap&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt;::hasher hashFn = umm.<span class="hljs-built_in">hash_function</span>();<span class="hljs-comment">//hashFn(&#x27;a&#x27;);</span>
+
+<span class="hljs-comment">/* Relational operators
+== !=
+*/</span>
+</div></code></pre>
+    <hr />
     <h2 id="unordered_set">&lt;unordered_set&gt;</h2>
     <p><a href="#stl-components">View Index</a></p>
     <ul>
@@ -2163,6 +2261,80 @@ us.<span class="hljs-built_in">reserve</span>(<span class="hljs-number">10</span
 
 <span class="hljs-comment">//Observers</span>
 unordered_set&lt;<span class="hljs-keyword">int</span>&gt;::hasher hashFn = us.<span class="hljs-built_in">hash_function</span>();
+
+<span class="hljs-comment">/* Relational operators
+== !=
+*/</span>
+</div></code></pre>
+    <hr />
+    <h2 id="unordered_set---unordered_multiset">
+      &lt;unordered_set&gt; -&gt; unordered_multiset
+    </h2>
+    <p><a href="#stl-components">View Index</a></p>
+    <ul>
+      <li>Stores elements in <strong>no particular order</strong></li>
+      <li>Elements <strong>can have</strong> equivalent values</li>
+      <li>
+        Elements is its key; Elements are <strong>const</strong>, Cannot be
+        modified once inserted
+      </li>
+      <li><strong>Not sorted</strong> in any particular order</li>
+      <li>
+        Elements are organized into <strong>buckets</strong> based on their
+        <strong>hash values</strong>
+      </li>
+    </ul>
+    <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
+<span class="hljs-keyword">int</span> arr[] {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>};
+
+unordered_multiset&lt;<span class="hljs-keyword">int</span>&gt; ums;
+<span class="hljs-function">unordered_multiset&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">ums1</span><span class="hljs-params">({<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>})</span></span>;
+<span class="hljs-function">unordered_multiset&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">ums2</span><span class="hljs-params">(ums1)</span></span>;
+<span class="hljs-function">unordered_multiset&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">ums3</span><span class="hljs-params">(arr, arr + <span class="hljs-number">3</span>)</span></span>;
+ums = ums1;
+ums = {<span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>};
+
+<span class="hljs-comment">//Capacity</span>
+ums.<span class="hljs-built_in">empty</span>();
+ums.<span class="hljs-built_in">size</span>();
+
+<span class="hljs-comment">/* Iterators
+begin, end, cbegin, cend
+*/</span>
+
+<span class="hljs-comment">//Element lookup</span>
+unordered_multiset&lt;<span class="hljs-keyword">int</span>&gt;::iterator itr = ums.<span class="hljs-built_in">find</span>(<span class="hljs-number">8</span>);<span class="hljs-comment">//itr to element or ums.end()</span>
+ums.<span class="hljs-built_in">count</span>(<span class="hljs-number">5</span>);<span class="hljs-comment">//0 or the count</span>
+
+<span class="hljs-keyword">typedef</span> unordered_multiset&lt;<span class="hljs-keyword">int</span>&gt;::iterator itrType;
+pair&lt;itrType, itrType&gt; itrRange = ums.<span class="hljs-built_in">equal_range</span>(<span class="hljs-number">6</span>);<span class="hljs-comment">//gives pair of itr to lowerbound and upperbound</span>
+
+<span class="hljs-comment">//Modifiers</span>
+ums.<span class="hljs-built_in">clear</span>();<span class="hljs-comment">//empty</span>
+
+itrType temp = ums.<span class="hljs-built_in">insert</span>(<span class="hljs-number">5</span>);<span class="hljs-comment">//return &lt;itr,true|false&gt;</span>
+itrType itr = ums.<span class="hljs-built_in">insert</span>(ums.<span class="hljs-built_in">begin</span>(), <span class="hljs-number">10</span>);<span class="hljs-comment">//hint, value to insert ; returns iterator</span>
+ums.<span class="hljs-built_in">insert</span>(arr, arr + <span class="hljs-number">3</span>);<span class="hljs-comment">//range</span>
+ums.<span class="hljs-built_in">insert</span>({<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>});
+
+ums.<span class="hljs-built_in">erase</span>(<span class="hljs-number">2</span>);
+ums.<span class="hljs-built_in">erase</span>(ums.<span class="hljs-built_in">begin</span>());
+ums.<span class="hljs-built_in">erase</span>(ums.<span class="hljs-built_in">begin</span>(), (<span class="hljs-built_in">advance</span>(itr, <span class="hljs-number">2</span>), itr));
+
+<span class="hljs-comment">//Buckets</span>
+ums.<span class="hljs-built_in">bucket_count</span>();
+ums.<span class="hljs-built_in">bucket_size</span>(<span class="hljs-number">3</span>);<span class="hljs-comment">//3&lt;bucket_count; 3-&gt;bucket number</span>
+ums.<span class="hljs-built_in">bucket</span>(<span class="hljs-number">2</span>);<span class="hljs-comment">//2-&gt;element</span>
+
+<span class="hljs-comment">//Hash policy</span>
+ums.<span class="hljs-built_in">load_factor</span>();
+ums.<span class="hljs-built_in">max_load_factor</span>();<span class="hljs-comment">//get</span>
+ums.<span class="hljs-built_in">max_load_factor</span>(<span class="hljs-number">2</span>);<span class="hljs-comment">//set</span>
+ums.<span class="hljs-built_in">rehash</span>(<span class="hljs-number">10</span>);<span class="hljs-comment">//10-&gt;bucket count; if 10&gt;bucket_count -&gt; rehash is forced with new bucket count &gt;= 10 else no effect</span>
+ums.<span class="hljs-built_in">reserve</span>(<span class="hljs-number">10</span>);<span class="hljs-comment">//10-&gt; number of elements; sets appropriate numbers of buckets for 10 elements; if 10&gt;bucket_count*max_load_factor -&gt; bucket count is increased and rehash is forced</span>
+
+<span class="hljs-comment">//Observers</span>
+unordered_multiset&lt;<span class="hljs-keyword">int</span>&gt;::hasher hashFn = ums.<span class="hljs-built_in">hash_function</span>();
 
 <span class="hljs-comment">/* Relational operators
 == !=

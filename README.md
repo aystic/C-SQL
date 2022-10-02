@@ -20,9 +20,9 @@
     - [Multimap](#map-multimap)
   - Unordered Associative Container
     - [Unordered Set](#unordered_set)
-    - Unordered Multiset
+    - [Unordered Multiset](#unordered_set---unordered_multiset)
     - [Unordered Map](#unordered_map)
-    - Unordered Multimap
+    - [Unordered Multimap](#unordered_map---unordered_multimap)
 - [Algorithms](#algorithm)
 - Others
   - [String](#string)
@@ -932,6 +932,103 @@ unordered_map<char, int>::hasher hashFn = um.hash_function();//hashFn('a');
 
 ---
 
+## &lt;unordered_map&gt; -> unordered_multimap
+
+[View Index](#stl-components)
+
+- Associative containers (key-value mapping)
+- Keys **can have** equivalent values
+- Fast retrieval based on keys
+- Elements are **not sorted** in any particular order
+- Elements are **organized into buckets** based on their **hash values**
+
+```C++
+/* Initialization */
+pair<char, int>arr[] {{'a', 1}, {'b', 2}, {'c', 3}, {'d', 4}};
+
+unordered_multimap<char, int> umm; //empty
+unordered_multimap<char, int> umm1({{'a', 1}, {'b', 2}, {'c', 3}, {'d', 4}}); //initializer list
+unordered_multimap<char, int> umm2(umm1); //copy
+unordered_multimap<char, int> umm3(arr, arr + 3); //range
+umm = umm1;
+umm = {{'a', 1}, {'b', 2}, {'c', 3}, {'d', 4}};
+
+
+//Capacity
+umm.empty();//true|false
+umm.size();//number of elements//
+
+/* Iterators
+begin, end, cbegin, cend
+*/
+
+
+//Element lookup
+unordered_multimap<char, int>::iterator itr = umm.find('c');//returns iterator or umm.end(), *itr.first,*itr.second
+
+umm.count('c');//0 or the count of the element
+
+typedef unordered_multimap<char, int>::iterator itrType;
+pair <itrType, itrType> itrPair = umm.equal_range('b');
+
+
+//Modifiers
+umm.clear();
+
+umm.insert({'e', 5});
+
+unordered_multimap<char, int>::iterator itr = umm1.begin();
+advance(itr, 2);
+umm.insert(umm1.begin(), itr);
+
+umm.insert({{'f', 6}, {'g', 7}});
+
+umm.erase('e');
+
+umm.erase(umm.begin());
+
+itr=umm.begin();
+advance(itr,2);
+umm.erase(umm.begin(),itr);
+
+
+//Buckets
+/*
+A bucket is a slot in the container's internal hash table to which elements are assigned based on the hash value of their key.
+*/
+int n = umm.bucket_count();//number of buckets
+for (int i = 0; i < n; ++i) {
+	cout << "bucket #" << i << " contains: ";
+	for (auto it = umm.begin(i); it != umm.end(i); ++it)
+		cout << "[" << it->first << ":" << it->second << "] ";
+	cout << endll;
+}
+
+int buckets = umm.bucket_count();
+for (int i = 0; i < buckets; ++i) {
+	cout << umm.bucket_size(i) << endll;//element in each bucket
+}
+
+umm.bucket('e');//returns the bucket containing the key 'e'
+
+
+//Hash policy
+umm.load_factor();//current load factor
+umm.max_load_factor();//max load factor; get
+umm.max_load_factor(0.5);//set
+umm.rehash(20);//20 -> number of buckets; 20>umm.bucket_count() ->rehashed is forced else may not rehash
+umm.reserve(20);//sets the number of buckets to the most appropriate to contain atleast 20 elements; n>bucket_count*max_load_factor -> bucket_count is increased and rehash is forced else nothing happens
+
+//Observers
+unordered_multimap<char, int>::hasher hashFn = umm.hash_function();//hashFn('a');
+
+/* Relational operators
+== !=
+*/
+```
+
+---
+
 ## &lt;unordered_set&gt;
 
 [View Index](#stl-components)
@@ -993,6 +1090,76 @@ us.reserve(10);//10-> number of elements; sets appropriate numbers of buckets fo
 
 //Observers
 unordered_set<int>::hasher hashFn = us.hash_function();
+
+/* Relational operators
+== !=
+*/
+```
+
+---
+
+## &lt;unordered_set&gt; -> unordered_multiset
+
+[View Index](#stl-components)
+
+- Stores elements in **no particular order**
+- Elements **can have** equivalent values
+- Elements is its key; Elements are **const**, Cannot be modified once inserted
+- **Not sorted** in any particular order
+- Elements are organized into **buckets** based on their **hash values**
+
+```C++
+/* Initialization */
+int arr[] {1, 2, 3, 4, 5};
+
+unordered_multiset<int> ums;
+unordered_multiset<int> ums1({1, 2, 3, 4, 5});
+unordered_multiset<int> ums2(ums1);
+unordered_multiset<int> ums3(arr, arr + 3);
+ums = ums1;
+ums = {5, 6, 7, 8, 9};
+
+//Capacity
+ums.empty();
+ums.size();
+
+/* Iterators
+begin, end, cbegin, cend
+*/
+
+//Element lookup
+unordered_multiset<int>::iterator itr = ums.find(8);//itr to element or ums.end()
+ums.count(5);//0 or the count
+
+typedef unordered_multiset<int>::iterator itrType;
+pair<itrType, itrType> itrRange = ums.equal_range(6);//gives pair of itr to lowerbound and upperbound
+
+//Modifiers
+ums.clear();//empty
+
+itrType temp = ums.insert(5);//return <itr,true|false>
+itrType itr = ums.insert(ums.begin(), 10);//hint, value to insert ; returns iterator
+ums.insert(arr, arr + 3);//range
+ums.insert({1, 2, 3});
+
+ums.erase(2);
+ums.erase(ums.begin());
+ums.erase(ums.begin(), (advance(itr, 2), itr));
+
+//Buckets
+ums.bucket_count();
+ums.bucket_size(3);//3<bucket_count; 3->bucket number
+ums.bucket(2);//2->element
+
+//Hash policy
+ums.load_factor();
+ums.max_load_factor();//get
+ums.max_load_factor(2);//set
+ums.rehash(10);//10->bucket count; if 10>bucket_count -> rehash is forced with new bucket count >= 10 else no effect
+ums.reserve(10);//10-> number of elements; sets appropriate numbers of buckets for 10 elements; if 10>bucket_count*max_load_factor -> bucket count is increased and rehash is forced
+
+//Observers
+unordered_multiset<int>::hasher hashFn = ums.hash_function();
 
 /* Relational operators
 == !=
