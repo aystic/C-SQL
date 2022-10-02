@@ -1171,6 +1171,7 @@
               <li><a href="#array">Array</a></li>
               <li><a href="#vector">Vector</a></li>
               <li><a href="#list">List</a></li>
+              <li><a href="#stack">Stack</a></li>
               <li><a href="#deque">Deque</a></li>
               <li><a href="#forward_list">Forward List</a></li>
             </ul>
@@ -1178,7 +1179,6 @@
           <li>
             Container Adaptors
             <ul>
-              <li><a href="#stack">Stack</a></li>
               <li><a href="#queue">Queue</a></li>
               <li><a href="#queue-priority_queue">Priority Queue</a></li>
             </ul>
@@ -1256,6 +1256,9 @@ arr1==arr2;<span class="hljs-comment">//== != &gt; &lt; &gt;= &lt;=</span>
     <hr />
     <h2 id="vector">&lt;vector&gt;</h2>
     <p><a href="#stl-components">View Index</a></p>
+    <ul>
+      <li>Internally, <strong>Dynamically allocated array</strong> is used</li>
+    </ul>
     <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
 vector&lt;<span class="hljs-keyword">int</span>&gt; v;<span class="hljs-comment">//empty</span>
 vector&lt;<span class="hljs-keyword">int</span>&gt;v1{<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>};<span class="hljs-comment">//Initializer list</span>
@@ -1321,6 +1324,9 @@ v.<span class="hljs-built_in">insert</span>(v.<span class="hljs-built_in">begin<
     <hr />
     <h2 id="list">&lt;list&gt;</h2>
     <p><a href="#stl-components">View Index</a></p>
+    <ul>
+      <li>Implemented as <strong>doubly linked lists</strong></li>
+    </ul>
     <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
 list&lt;<span class="hljs-keyword">int</span>&gt; l1;<span class="hljs-comment">//empty</span>
 list&lt;<span class="hljs-keyword">int</span>&gt; l2{<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>};<span class="hljs-comment">//1,2,3,4,5</span>
@@ -1428,6 +1434,16 @@ l2.<span class="hljs-built_in">sort</span>(binaryPredicate);
     <hr />
     <h2 id="deque">&lt;deque&gt;</h2>
     <p><a href="#stl-components">View Index</a></p>
+    <ul>
+      <li>Generally implemented as <strong>dynamic arrays</strong></li>
+      <li>
+        <strong>Not guaranteed</strong> to store all the elements in contiguous
+        manner
+      </li>
+      <li>
+        Elements are <strong>scattered</strong> in different chunks of storage
+      </li>
+    </ul>
     <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
 <span class="hljs-keyword">int</span> arr[] {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>};
 vector&lt;<span class="hljs-keyword">int</span>&gt; v{<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>};
@@ -1494,6 +1510,9 @@ dq.<span class="hljs-built_in">clear</span>();<span class="hljs-comment">//size=
     <hr />
     <h2 id="forward_list">&lt;forward_list&gt;</h2>
     <p><a href="#stl-components">View Index</a></p>
+    <ul>
+      <li>Implemented as <strong>singly linked lists</strong></li>
+    </ul>
     <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
 <span class="hljs-keyword">int</span> arr[] {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>};
 
@@ -1602,10 +1621,12 @@ fl.<span class="hljs-built_in">reverse</span>();
     <h2 id="stack">&lt;stack&gt;</h2>
     <p><a href="#stl-components">View Index</a></p>
     <ul>
-      <li>It is a container adaptor</li>
+      <li>It is a <strong>container adaptor</strong></li>
       <li>
-        By default the underlying container is <code>deque</code> but
-        <code>vector</code> and <code>list</code> can also be used
+        By default the underlying container is
+        <strong><code>deque</code></strong> but
+        <strong><code>vector</code></strong> and
+        <strong><code>list</code></strong> can also be used
       </li>
     </ul>
     <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
@@ -1633,10 +1654,11 @@ st1.<span class="hljs-built_in">pop</span>();
     <h2 id="queue">&lt;queue&gt;</h2>
     <p><a href="#stl-components">View Index</a></p>
     <ul>
-      <li>It is a container adaptor</li>
+      <li>It is a <strong>container adaptor</strong></li>
       <li>
-        By default the underlying container is <code>deque</code> but
-        <code>list</code> can also be used
+        By default the underlying container is
+        <strong><code>deque</code></strong> but
+        <strong><code>list</code></strong> can also be used
       </li>
     </ul>
     <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
@@ -1663,10 +1685,11 @@ q1.<span class="hljs-built_in">back</span>();
     <h2 id="queue-priority_queue">&lt;queue&gt;-&gt;priority_queue</h2>
     <p><a href="#stl-components">View Index</a></p>
     <ul>
-      <li>It is a container adaptor</li>
+      <li>It is a <strong>container adaptor</strong></li>
       <li>
-        By default the underlying container is <code>vector</code> but
-        <code>dequeue</code> can also be used
+        By default the underlying container is
+        <strong><code>vector</code></strong> but
+        <strong><code>dequeue</code></strong> can also be used
       </li>
     </ul>
     <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
@@ -1702,6 +1725,20 @@ pq1.<span class="hljs-built_in">pop</span>();
     <hr />
     <h2 id="set">&lt;set&gt;</h2>
     <p><a href="#stl-components">View Index</a></p>
+    <ul>
+      <li>
+        Store <strong>unique elements</strong> following a
+        <strong>specific order</strong>
+      </li>
+      <li>The value of an element is the key(must be unique)</li>
+      <li>
+        Elements are always <strong>const</strong> - cannot be modified once in
+        container
+      </li>
+      <li>Elements are <strong>sorted</strong></li>
+      <li>Slower than unordered_set</li>
+      <li>Implemented as <strong>BST</strong></li>
+    </ul>
     <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">compareClass</span> {</span>
 <span class="hljs-keyword">public</span>:
@@ -1757,6 +1794,19 @@ s.<span class="hljs-built_in">equal_pair</span>(<span class="hljs-number">10</sp
     <hr />
     <h2 id="set-multiset">&lt;set&gt;-&gt;Multiset</h2>
     <p><a href="#stl-components">View Index</a></p>
+    <ul>
+      <li>
+        Store elements following a <strong>specific order</strong>, and where
+        multiple elements <strong>can have equivalent values</strong>
+      </li>
+      <li>
+        Value of the element is the key; It is <strong>const</strong> and cannot
+        be modified once in the container
+      </li>
+      <li>Elements are in <strong>sorted</strong> order</li>
+      <li>Slower than unorderd_multiset</li>
+      <li>Implemented as <strong>BST</strong></li>
+    </ul>
     <pre><code class="language-C++"><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">compareClass</span> {</span>
 <span class="hljs-keyword">public</span>:
 	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span> <span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp; lhs, <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp; rhs)</span> <span class="hljs-keyword">const</span>
@@ -1808,6 +1858,13 @@ ms.<span class="hljs-built_in">equal_pair</span>(<span class="hljs-number">10</s
     <hr />
     <h2 id="map">&lt;map&gt;</h2>
     <p><a href="#stl-components">View Index</a></p>
+    <ul>
+      <li>Associative containers (key-value mapping)</li>
+      <li>Follow a specific order</li>
+      <li>The elements are <strong>sorted by its key</strong></li>
+      <li>Slower than unordered_map</li>
+      <li>Typically implemented as <strong>BST</strong></li>
+    </ul>
     <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">compareClass</span> {</span>
 <span class="hljs-keyword">public</span>:
@@ -1876,6 +1933,14 @@ itrRange = mp5.<span class="hljs-built_in">equal_range</span>(<span class="hljs-
     <hr />
     <h2 id="map-multimap">&lt;map&gt;-&gt;multimap</h2>
     <p><a href="#stl-components">View Index</a></p>
+    <ul>
+      <li>Associative containers (key-value mapping)</li>
+      <li>Follow a specific order</li>
+      <li>Multiple elements <strong>can have equivalent values</strong></li>
+      <li>Elements always <strong>sorted by its key</strong></li>
+      <li>Slower than unordered_multimap</li>
+      <li>Typically implemented as <strong>BST</strong></li>
+    </ul>
     <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">compareClass</span> {</span>
 <span class="hljs-keyword">public</span>:
@@ -1937,6 +2002,15 @@ itrRange = mmp5.<span class="hljs-built_in">equal_range</span>(<span class="hljs
     <hr />
     <h2 id="unordered_map">&lt;unordered_map&gt;</h2>
     <p><a href="#stl-components">View Index</a></p>
+    <ul>
+      <li>Associative containers (key-value mapping)</li>
+      <li>Fast retrieval based on keys</li>
+      <li>Elements are <strong>not sorted</strong> in any particular order</li>
+      <li>
+        Elements are <strong>organized into buckets</strong> based on their
+        <strong>hash values</strong>
+      </li>
+    </ul>
     <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
 pair&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt;arr[] {{<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">1</span>}, {<span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">2</span>}, {<span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-number">3</span>}, {<span class="hljs-string">&#x27;d&#x27;</span>, <span class="hljs-number">4</span>}};
 
@@ -2023,6 +2097,21 @@ unordered_map&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keywo
     <hr />
     <h2 id="unordered_set">&lt;unordered_set&gt;</h2>
     <p><a href="#stl-components">View Index</a></p>
+    <ul>
+      <li>
+        Stores <strong>unique elements</strong> in
+        <strong>no particular order</strong>
+      </li>
+      <li>
+        Elements is its key; Elements are <strong>const</strong>, Cannot be
+        modified once inserted
+      </li>
+      <li><strong>Not sorted</strong> in any particular order</li>
+      <li>
+        Elements are organized into <strong>buckets</strong> based on their
+        <strong>hash values</strong>
+      </li>
+    </ul>
     <pre><code class="language-C++"><div><span class="hljs-comment">/* Initialization */</span>
 <span class="hljs-keyword">int</span> arr[] {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>};
 
