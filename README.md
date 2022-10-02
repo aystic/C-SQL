@@ -23,7 +23,7 @@
     - Unordered Multiset
     - [Unordered Map](#unordered_map)
     - Unordered Multimap
-- [Algorithms](#**algorithm)
+- [Algorithms](#algorithm)
 - Others
   - [String](#string)
   - [IOManip](#iomanip)
