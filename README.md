@@ -7,10 +7,10 @@
     - [Array](#array)
     - [Vector](#vector)
     - [List](#list)
+    - [Stack](#stack)
     - [Deque](#deque)
     - [Forward List](#forward_list)
   - Container Adaptors
-    - [Stack](#stack)
     - [Queue](#queue)
     - [Priority Queue](#queue-priority_queue)
   - Associative Containers
@@ -79,6 +79,8 @@ arr1==arr2;//== != > < >= <=
 ## &lt;vector&gt;
 
 [View Index](#stl-components)
+
+- Internally, **Dynamically allocated array** is used
 
 ```C++
 /* Initialization */
@@ -149,6 +151,8 @@ v.insert(v.begin(), v.begin(), v.begin() + 2);//9,8,9,8,0,0,0,99,7
 ## &lt;list&gt;
 
 [View Index](#stl-components)
+
+- Implemented as **doubly linked lists**
 
 ```C++
 /* Initialization */
@@ -262,6 +266,10 @@ l2.sort(binaryPredicate);
 
 [View Index](#stl-components)
 
+- Generally implemented as **dynamic arrays**
+- **Not guaranteed** to store all the elements in contiguous manner
+- Elements are **scattered** in different chunks of storage
+
 ```C++
 /* Initialization */
 int arr[] {1, 2, 3};
@@ -332,6 +340,8 @@ dq.clear();//size=0
 ## &lt;forward_list&gt;
 
 [View Index](#stl-components)
+
+- Implemented as **singly linked lists**
 
 ```C++
 /* Initialization */
@@ -445,8 +455,8 @@ fl.reverse();
 
 [View Index](#stl-components)
 
-- It is a container adaptor
-- By default the underlying container is `deque` but `vector` and `list` can also be used
+- It is a **container adaptor**
+- By default the underlying container is **`deque`** but **`vector`** and **`list`** can also be used
 
 ```C++
 /* Initialization */
@@ -477,8 +487,8 @@ st1.pop();
 
 [View Index](#stl-components)
 
-- It is a container adaptor
-- By default the underlying container is `deque` but `list` can also be used
+- It is a **container adaptor**
+- By default the underlying container is **`deque`** but **`list`** can also be used
 
 ```C++
 /* Initialization */
@@ -508,8 +518,8 @@ q1.back();
 
 [View Index](#stl-components)
 
-- It is a container adaptor
-- By default the underlying container is `vector` but `dequeue` can also be used
+- It is a **container adaptor**
+- By default the underlying container is **`vector`** but **`dequeue`** can also be used
 
 ```C++
 /* Initialization */
@@ -548,6 +558,13 @@ pq1.pop();
 ## &lt;set&gt;
 
 [View Index](#stl-components)
+
+- Store **unique elements** following a **specific order**
+- The value of an element is the key(must be unique)
+- Elements are always **const** - cannot be modified once in container
+- Elements are **sorted**
+- Slower than unordered_set
+- Implemented as **BST**
 
 ```C++
 /* Initialization */
@@ -609,6 +626,12 @@ s.equal_pair(10);//returns pair; first->lower_bound(10) second->upper_bound(10);
 
 [View Index](#stl-components)
 
+- Store elements following a **specific order**, and where multiple elements **can have equivalent values**
+- Value of the element is the key; It is **const** and cannot be modified once in the container
+- Elements are in **sorted** order
+- Slower than unorderd_multiset
+- Implemented as **BST**
+
 ```C++
 class compareClass {
 public:
@@ -664,6 +687,12 @@ ms.equal_pair(10);//returns pair; first->lower_bound(10) second->upper_bound(10)
 ## &lt;map&gt;
 
 [View Index](#stl-components)
+
+- Associative containers (key-value mapping)
+- Follow a specific order
+- The elements are **sorted by its key**
+- Slower than unordered_map
+- Typically implemented as **BST**
 
 ```C++
 /* Initialization */
@@ -738,6 +767,13 @@ itrRange = mp5.equal_range('c');//itrRange.first->('c',3), itrRange.second->('b'
 
 [View Index](#stl-components)
 
+- Associative containers (key-value mapping)
+- Follow a specific order
+- Multiple elements **can have equivalent values**
+- Elements always **sorted by its key**
+- Slower than unordered_multimap
+- Typically implemented as **BST**
+
 ```C++
 /* Initialization */
 class compareClass {
@@ -803,6 +839,11 @@ itrRange = mmp5.equal_range('c');
 ## &lt;unordered_map&gt;
 
 [View Index](#stl-components)
+
+- Associative containers (key-value mapping)
+- Fast retrieval based on keys
+- Elements are **not sorted** in any particular order
+- Elements are **organized into buckets** based on their **hash values**
 
 ```C++
 /* Initialization */
@@ -894,6 +935,11 @@ unordered_map<char, int>::hasher hashFn = um.hash_function();//hashFn('a');
 ## &lt;unordered_set&gt;
 
 [View Index](#stl-components)
+
+- Stores **unique elements** in **no particular order**
+- Elements is its key; Elements are **const**, Cannot be modified once inserted
+- **Not sorted** in any particular order
+- Elements are organized into **buckets** based on their **hash values**
 
 ```C++
 /* Initialization */
