@@ -23,14 +23,14 @@
     - Unordered Multiset
     - [Unordered Map](#unordered_map)
     - Unordered Multimap
-- Algorithms
+- [Algorithms](#**algorithm)
 - Others
   - [String](#string)
-  - [iomanip](#iomanip)
-  - [limits](#limits)
-  - [utility](#utility)
-  - [tuple](#tuple)
-  - [bitset](#bitset)
+  - [IOManip](#iomanip)
+  - [Limits](#limits)
+  - [Utility](#utility)
+  - [Tuple](#tuple)
+  - [Bitset](#bitset)
 
 ---
 
@@ -951,6 +951,54 @@ unordered_set<int>::hasher hashFn = us.hash_function();
 /* Relational operators
 == !=
 */
+```
+
+---
+
+## &lt;algorithm&gt;
+
+[View Index](#stl-components)
+
+```C++
+int arr[] {6, 3, 4, 5, 3, 2, 3, 1};
+
+//Sorting - in range [a,b)
+sort(arr, arr + sizeof(arr) / sizeof(int));
+sort(arr, arr + sizeof(arr) / sizeof(int),compare);//return true if first element goes before second
+
+//Binary search
+lower_bound(arr, arr + size, 5);//returns iterator to an element; elemnt >= 5
+lower_bound(arr, arr + size, 5, compare);
+
+upper_bound(arr, arr + size, 5);//element > 5
+upper_bound(arr, arr + size, 5, decrease);
+
+pair<itrType, itrType> range = equal_range(arr, arr + size, 5);//gives pair of lowerbound and upperbound for 5
+pair<itrType, itrType> range = equal_range(arr, arr + size, 5,compare);
+
+binary_search(arr, arr + size, 0);//returns true|false
+binary_search(arr, arr + size, 0,compare);
+
+//Heap
+vector<int> v{1, 2, 3, 4, 5};//1 2 3 4 5
+make_heap(v.begin(), v.end());//5 4 3 1 2
+v.push_back(20);//5 4 3 1 2 20
+push_heap(v.begin(), v.end(),compare);//20 4 5 1 2 3
+sort_heap(v.begin(), v.end(),compare);//1 2 3 4 5 20
+make_heap(v.begin(),v.end(),compare);
+pop_heap(v.begin(), v.end(),compare);
+v.pop_back();//5 4 3 1 2
+is_heap(v.begin(),v.end(),compare);//true|false
+
+min(1,2,compare);
+min({1, 2, 3, 4}, compare);
+max(1,2,compare);
+max({1, 2, 3, 4}, compare);
+
+//Permuations
+//returns true|false
+prev_permutation(arr, arr + size, compare);//lexicographically smaller permutations
+next_permutation(arr, arr + size, compare);//lexicographically larger permutations
 ```
 
 ---
