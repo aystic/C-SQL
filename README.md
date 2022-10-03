@@ -7,10 +7,10 @@
     - [Array](#array)
     - [Vector](#vector)
     - [List](#list)
-    - [Stack](#stack)
     - [Deque](#deque)
     - [Forward List](#forward_list)
   - Container Adaptors
+    - [Stack](#stack)
     - [Queue](#queue)
     - [Priority Queue](#queue-priority_queue)
   - Associative Containers
@@ -31,6 +31,7 @@
   - [Utility](#utility)
   - [Tuple](#tuple)
   - [Bitset](#bitset)
+  - [Functors](#functors)
 
 ---
 
@@ -1436,6 +1437,57 @@ unsigned long int uli;
 uli = b1.to_ulong();
 unsigned long long ulli;
 ulli = b1.to_ullong();
+```
+
+---
+
+## Functors
+
+[View Index](#stl-components)
+
+- Function objects - Functions wrapped in a class
+
+```C++
+/*
+* @Author: pmohit
+* @Date:   2022-10-03 02:18:37
+* @Last Modified by:   pmohit
+* @Last Modified time: 2022-10-03 14:40:23
+*/
+#include<iostream>
+#include <algorithm>
+using namespace std;
+#define endll '\n'
+typedef long long ll;
+typedef long long unsigned llu;
+//==========================================
+
+class functor {
+	int n;
+public:
+	functor() {
+		n = 10;
+	}
+	functor(int n) {
+		this->n = n;
+	}
+	bool operator()(const int& a, const int& b) {
+		if(a<=n and b<=n)
+			return a > b;
+		return false;
+	}
+} compare;
+
+
+bool compareFn(const int& a, const int& b) {
+	return a > b;
+}
+
+int arr[] {1, 2, 3, 4, 5};
+sort(arr, arr + 5, functor(3));//reverse sorting elements <=3
+sort(arr, arr + 5, functor());//reverse sorting elements <=10
+sort(arr, arr + 5, compare);
+sort(arr, arr + 5, compareFn);
 ```
 
 ---

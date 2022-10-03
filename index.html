@@ -1171,7 +1171,6 @@
               <li><a href="#array">Array</a></li>
               <li><a href="#vector">Vector</a></li>
               <li><a href="#list">List</a></li>
-              <li><a href="#stack">Stack</a></li>
               <li><a href="#deque">Deque</a></li>
               <li><a href="#forward_list">Forward List</a></li>
             </ul>
@@ -1179,6 +1178,7 @@
           <li>
             Container Adaptors
             <ul>
+              <li><a href="#stack">Stack</a></li>
               <li><a href="#queue">Queue</a></li>
               <li><a href="#queue-priority_queue">Priority Queue</a></li>
             </ul>
@@ -1221,6 +1221,7 @@
           <li><a href="#utility">Utility</a></li>
           <li><a href="#tuple">Tuple</a></li>
           <li><a href="#bitset">Bitset</a></li>
+          <li><a href="#functors">Functors</a></li>
         </ul>
       </li>
     </ul>
@@ -2584,6 +2585,53 @@ s=b.<span class="hljs-built_in">to_string</span>();
 uli = b1.<span class="hljs-built_in">to_ulong</span>();
 <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> ulli;
 ulli = b1.<span class="hljs-built_in">to_ullong</span>();
+</div></code></pre>
+    <hr />
+    <h2 id="functors">Functors</h2>
+    <p><a href="#stl-components">View Index</a></p>
+    <ul>
+      <li>Function objects - Functions wrapped in a class</li>
+    </ul>
+    <pre><code class="language-C++"><div><span class="hljs-comment">/*
+* @Author: pmohit
+* @Date:   2022-10-03 02:18:37
+* @Last Modified by:   pmohit
+* @Last Modified time: 2022-10-03 14:40:23
+*/</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> endll <span class="hljs-meta-string">&#x27;\n&#x27;</span></span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> ll;
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">unsigned</span> llu;
+<span class="hljs-comment">//==========================================</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">functor</span> {</span>
+	<span class="hljs-keyword">int</span> n;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-built_in">functor</span>() {
+		n = <span class="hljs-number">10</span>;
+	}
+	<span class="hljs-built_in">functor</span>(<span class="hljs-keyword">int</span> n) {
+		<span class="hljs-keyword">this</span>-&gt;n = n;
+	}
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp; a, <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp; b)</span> </span>{
+		<span class="hljs-keyword">if</span>(a&lt;=n <span class="hljs-keyword">and</span> b&lt;=n)
+			<span class="hljs-keyword">return</span> a &gt; b;
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	}
+} compare;
+
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">compareFn</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp; a, <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp; b)</span> </span>{
+	<span class="hljs-keyword">return</span> a &gt; b;
+}
+
+<span class="hljs-keyword">int</span> arr[] {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>};
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">5</span>, <span class="hljs-built_in">functor</span>(<span class="hljs-number">3</span>));<span class="hljs-comment">//reverse sorting elements &lt;=3</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">5</span>, <span class="hljs-built_in">functor</span>());<span class="hljs-comment">//reverse sorting elements &lt;=10</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">5</span>, compare);
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">5</span>, compareFn);
 </div></code></pre>
     <hr />
   </body>
