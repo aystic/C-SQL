@@ -1448,20 +1448,6 @@ ulli = b1.to_ullong();
 - Function objects - Functions wrapped in a class
 
 ```C++
-/*
-* @Author: pmohit
-* @Date:   2022-10-03 02:18:37
-* @Last Modified by:   pmohit
-* @Last Modified time: 2022-10-03 14:40:23
-*/
-#include<iostream>
-#include <algorithm>
-using namespace std;
-#define endll '\n'
-typedef long long ll;
-typedef long long unsigned llu;
-//==========================================
-
 class functor {
 	int n;
 public:
