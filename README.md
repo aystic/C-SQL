@@ -32,6 +32,7 @@
   - [Tuple](#tuple)
   - [Bitset](#bitset)
   - [Functors](#functors)
+  - [Functional Objects](#functional)
 
 ---
 
@@ -1446,6 +1447,8 @@ ulli = b1.to_ullong();
 [View Index](#stl-components)
 
 - Function objects - Functions wrapped in a class
+- Function objects are objects specifically designed to be used with a **syntax similar to that of functions**.
+- Achieved by defining **member function operator()** in their class
 
 ```C++
 class functor {
@@ -1474,6 +1477,35 @@ sort(arr, arr + 5, functor(3));//reverse sorting elements <=3
 sort(arr, arr + 5, functor());//reverse sorting elements <=10
 sort(arr, arr + 5, compare);
 sort(arr, arr + 5, compareFn);
+```
+
+---
+
+## &lt;functional&gt;
+
+[View Index](#stl-components)
+
+```C++
+int arr[] {4, 3, 2, 1, 6, 7, 9};
+sort(arr, arr + 7, bit_and<int>());//return x&y
+sort(arr, arr + 7, bit_or<int>());//return x|y
+sort(arr, arr + 7, bit_xor<int>());//return x^y
+sort(arr, arr + 7, divides<int>());//return x/y
+sort(arr, arr + 7, equal_to<int>());//return x==y
+sort(arr, arr + 7, greater<int>());//return x>y
+sort(arr, arr + 7, greater_equal<int>());//return x>=y
+sort(arr, arr + 7, less<int>());//return x<y
+sort(arr, arr + 7, less_equal<int>());//return x<=y
+sort(arr, arr + 7, logical_and<int>());//return x&&y
+logical_not<int>();//return !x
+sort(arr, arr + 7, logical_or<int>());//return x||y
+sort(arr, arr + 7, minus<int>()); //return x-y
+sort(arr, arr + 7, modulus<int>());//return x%y
+sort(arr, arr + 7, multiplies<int>());//return x*y
+negate<int>();//return -x
+sort(arr, arr + 7, not_equal_to<int>());//return x!=y
+sort(arr, arr + 7, plus<int>()); //return x+y
+sort(arr, arr + 7, logical_and<int>());//return x&&y
 ```
 
 ---

@@ -1222,6 +1222,7 @@
           <li><a href="#tuple">Tuple</a></li>
           <li><a href="#bitset">Bitset</a></li>
           <li><a href="#functors">Functors</a></li>
+          <li><a href="#functional">Functional Objects</a></li>
         </ul>
       </li>
     </ul>
@@ -2591,6 +2592,14 @@ ulli = b1.<span class="hljs-built_in">to_ullong</span>();
     <p><a href="#stl-components">View Index</a></p>
     <ul>
       <li>Function objects - Functions wrapped in a class</li>
+      <li>
+        Function objects are objects specifically designed to be used with a
+        <strong>syntax similar to that of functions</strong>.
+      </li>
+      <li>
+        Achieved by defining <strong>member function operator()</strong> in
+        their class
+      </li>
     </ul>
     <pre><code class="language-C++"><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">functor</span> {</span>
 	<span class="hljs-keyword">int</span> n;
@@ -2618,6 +2627,30 @@ ulli = b1.<span class="hljs-built_in">to_ullong</span>();
 <span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">5</span>, <span class="hljs-built_in">functor</span>());<span class="hljs-comment">//reverse sorting elements &lt;=10</span>
 <span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">5</span>, compare);
 <span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">5</span>, compareFn);
+</div></code></pre>
+    <hr />
+    <h2 id="functional">&lt;functional&gt;</h2>
+    <p><a href="#stl-components">View Index</a></p>
+    <pre><code class="language-C++"><div><span class="hljs-keyword">int</span> arr[] {<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>};
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, bit_and&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x&amp;y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, bit_or&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x|y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, bit_xor&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x^y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, divides&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x/y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, equal_to&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x==y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, greater&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x&gt;y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, greater_equal&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x&gt;=y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, less&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x&lt;y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, less_equal&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x&lt;=y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, logical_and&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x&amp;&amp;y</span>
+logical_not&lt;<span class="hljs-keyword">int</span>&gt;();<span class="hljs-comment">//return !x</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, logical_or&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x||y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, minus&lt;<span class="hljs-keyword">int</span>&gt;()); <span class="hljs-comment">//return x-y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, modulus&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x%y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, multiplies&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x*y</span>
+negate&lt;<span class="hljs-keyword">int</span>&gt;();<span class="hljs-comment">//return -x</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, not_equal_to&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x!=y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, plus&lt;<span class="hljs-keyword">int</span>&gt;()); <span class="hljs-comment">//return x+y</span>
+<span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, logical_and&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x&amp;&amp;y</span>
 </div></code></pre>
     <hr />
   </body>
