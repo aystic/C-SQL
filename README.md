@@ -33,6 +33,7 @@
   - [Bitset](#bitset)
   - [Functors](#functors)
   - [Functional Objects](#functional)
+  - [Mathematical functions](#cmath)
 
 ---
 
@@ -1506,6 +1507,74 @@ negate<int>();//return -x
 sort(arr, arr + 7, not_equal_to<int>());//return x!=y
 sort(arr, arr + 7, plus<int>()); //return x+y
 sort(arr, arr + 7, logical_and<int>());//return x&&y
+```
+
+---
+
+## &lt;cmath&gt;
+
+[View Index](#stl-components)
+
+```C++
+/* Trigonometric functions
+Value representing an angle expressed in radians.
+One radian is equivalent to 180/PI degrees.
+*/
+double multiplier = PI / 180;
+sin(90 * multiplier);//1
+cos(90 * multiplier);//0
+tan(45 * multiplier);//1
+
+//Exponential and logarithmic functions
+exp(5);//e^5
+log(exp(1));//1
+log(2);//0.69
+log10(10);//1
+log10(2);//0.30
+log2(2);//1
+double fractPart, intPart;
+fractPart = modf(3.1415, &intPart);//intPart=3, fractPart-0.1415
+exp2(10);//1024
+
+//Power functions
+pow(10, 3);//1000
+sqrt(36);//6
+cbrt(8);//2
+
+//Rounding and Remainder functions
+ceil(2.99); //3
+ceil(-2.99); //-2
+ceil(3.01); //4
+ceil(-3.01); //-3
+
+floor(2.99); //2
+floor(-2.99); //-3
+floor(3.01); //3
+floor(-3.01); //-4
+
+
+round(3.49);//3
+round(-3.49);//-3
+round(3.50);//4
+round(-3.50);//-4
+
+//trunc -> toward 0
+trunc(2.25);//2
+trunc(-2.25);//-2
+
+/*
+value   round   floor   ceil    trunc
+-----   -----   -----   ----    -----
+ 2.3     2.0     2.0     3.0     2.0
+ 3.8     4.0     3.0     4.0     3.0
+ 5.5     6.0     5.0     6.0     5.0
+-2.3    -2.0    -3.0    -2.0    -2.0
+-3.8    -4.0    -4.0    -3.0    -3.0
+-5.5    -6.0    -6.0    -5.0    -5.0
+*/
+
+abs(-3.14);//3.14
+abs(3.14);//3.14
 ```
 
 ---

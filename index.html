@@ -1223,6 +1223,7 @@
           <li><a href="#bitset">Bitset</a></li>
           <li><a href="#functors">Functors</a></li>
           <li><a href="#functional">Functional Objects</a></li>
+          <li><a href="#cmath">Mathematical functions</a></li>
         </ul>
       </li>
     </ul>
@@ -2651,6 +2652,69 @@ negate&lt;<span class="hljs-keyword">int</span>&gt;();<span class="hljs-comment"
 <span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, not_equal_to&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x!=y</span>
 <span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, plus&lt;<span class="hljs-keyword">int</span>&gt;()); <span class="hljs-comment">//return x+y</span>
 <span class="hljs-built_in">sort</span>(arr, arr + <span class="hljs-number">7</span>, logical_and&lt;<span class="hljs-keyword">int</span>&gt;());<span class="hljs-comment">//return x&amp;&amp;y</span>
+</div></code></pre>
+    <hr />
+    <h2 id="cmath">&lt;cmath&gt;</h2>
+    <p><a href="#stl-components">View Index</a></p>
+    <pre><code class="language-C++"><div><span class="hljs-comment">/* Trigonometric functions
+Value representing an angle expressed in radians.
+One radian is equivalent to 180/PI degrees.
+*/</span>
+<span class="hljs-keyword">double</span> multiplier = PI / <span class="hljs-number">180</span>;
+<span class="hljs-built_in">sin</span>(<span class="hljs-number">90</span> * multiplier);<span class="hljs-comment">//1</span>
+<span class="hljs-built_in">cos</span>(<span class="hljs-number">90</span> * multiplier);<span class="hljs-comment">//0</span>
+<span class="hljs-built_in">tan</span>(<span class="hljs-number">45</span> * multiplier);<span class="hljs-comment">//1</span>
+
+<span class="hljs-comment">//Exponential and logarithmic functions</span>
+<span class="hljs-built_in">exp</span>(<span class="hljs-number">5</span>);<span class="hljs-comment">//e^5</span>
+<span class="hljs-built_in">log</span>(<span class="hljs-built_in">exp</span>(<span class="hljs-number">1</span>));<span class="hljs-comment">//1</span>
+<span class="hljs-built_in">log</span>(<span class="hljs-number">2</span>);<span class="hljs-comment">//0.69</span>
+<span class="hljs-built_in">log10</span>(<span class="hljs-number">10</span>);<span class="hljs-comment">//1</span>
+<span class="hljs-built_in">log10</span>(<span class="hljs-number">2</span>);<span class="hljs-comment">//0.30</span>
+<span class="hljs-built_in">log2</span>(<span class="hljs-number">2</span>);<span class="hljs-comment">//1</span>
+<span class="hljs-keyword">double</span> fractPart, intPart;
+fractPart = <span class="hljs-built_in">modf</span>(<span class="hljs-number">3.1415</span>, &amp;intPart);<span class="hljs-comment">//intPart=3, fractPart-0.1415</span>
+<span class="hljs-built_in">exp2</span>(<span class="hljs-number">10</span>);<span class="hljs-comment">//1024</span>
+
+<span class="hljs-comment">//Power functions</span>
+<span class="hljs-built_in">pow</span>(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>);<span class="hljs-comment">//1000</span>
+<span class="hljs-built_in">sqrt</span>(<span class="hljs-number">36</span>);<span class="hljs-comment">//6</span>
+<span class="hljs-built_in">cbrt</span>(<span class="hljs-number">8</span>);<span class="hljs-comment">//2</span>
+
+<span class="hljs-comment">//Rounding and Remainder functions</span>
+<span class="hljs-built_in">ceil</span>(<span class="hljs-number">2.99</span>); <span class="hljs-comment">//3</span>
+<span class="hljs-built_in">ceil</span>(<span class="hljs-number">-2.99</span>); <span class="hljs-comment">//-2</span>
+<span class="hljs-built_in">ceil</span>(<span class="hljs-number">3.01</span>); <span class="hljs-comment">//4</span>
+<span class="hljs-built_in">ceil</span>(<span class="hljs-number">-3.01</span>); <span class="hljs-comment">//-3</span>
+
+<span class="hljs-built_in">floor</span>(<span class="hljs-number">2.99</span>); <span class="hljs-comment">//2</span>
+<span class="hljs-built_in">floor</span>(<span class="hljs-number">-2.99</span>); <span class="hljs-comment">//-3</span>
+<span class="hljs-built_in">floor</span>(<span class="hljs-number">3.01</span>); <span class="hljs-comment">//3</span>
+<span class="hljs-built_in">floor</span>(<span class="hljs-number">-3.01</span>); <span class="hljs-comment">//-4</span>
+
+
+<span class="hljs-built_in">round</span>(<span class="hljs-number">3.49</span>);<span class="hljs-comment">//3</span>
+<span class="hljs-built_in">round</span>(<span class="hljs-number">-3.49</span>);<span class="hljs-comment">//-3</span>
+<span class="hljs-built_in">round</span>(<span class="hljs-number">3.50</span>);<span class="hljs-comment">//4</span>
+<span class="hljs-built_in">round</span>(<span class="hljs-number">-3.50</span>);<span class="hljs-comment">//-4</span>
+
+<span class="hljs-comment">//trunc -&gt; toward 0</span>
+<span class="hljs-built_in">trunc</span>(<span class="hljs-number">2.25</span>);<span class="hljs-comment">//2</span>
+<span class="hljs-built_in">trunc</span>(<span class="hljs-number">-2.25</span>);<span class="hljs-comment">//-2</span>
+
+<span class="hljs-comment">/*
+value   round   floor   ceil    trunc
+-----   -----   -----   ----    -----
+ 2.3     2.0     2.0     3.0     2.0
+ 3.8     4.0     3.0     4.0     3.0
+ 5.5     6.0     5.0     6.0     5.0
+-2.3    -2.0    -3.0    -2.0    -2.0
+-3.8    -4.0    -4.0    -3.0    -3.0
+-5.5    -6.0    -6.0    -5.0    -5.0
+*/</span>
+
+<span class="hljs-built_in">abs</span>(<span class="hljs-number">-3.14</span>);<span class="hljs-comment">//3.14</span>
+<span class="hljs-built_in">abs</span>(<span class="hljs-number">3.14</span>);<span class="hljs-comment">//3.14</span>
 </div></code></pre>
     <hr />
   </body>
